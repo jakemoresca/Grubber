@@ -21,7 +21,8 @@ var Home = (function () {
     Home = __decorate([
         core_1.Component({
             selector: 'home',
-            templateUrl: './home.html',
+            moduleId: module.id,
+            templateUrl: 'home.html',
             directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [router_1.Router])

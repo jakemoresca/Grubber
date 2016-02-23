@@ -5,8 +5,9 @@ import {MDL} from './core/MDL';
 
 @ng.Component({
     selector: 'app',
-    templateUrl: './app/app.html',
-    styleUrls: ['./app/app.css'],
+    moduleId: module.id,
+    templateUrl: 'app.html',
+    styleUrls: ['app.css'],
     directives: [router.ROUTER_DIRECTIVES, MDL]
 })
 @router.RouteConfig(APP_ROUTES)

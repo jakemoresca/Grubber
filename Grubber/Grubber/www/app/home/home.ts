@@ -4,8 +4,9 @@ import {Router} from 'angular2/router';
 import {Routes} from '../routes.config';
 
 @Component({
-	selector: 'home',
-    templateUrl: 'app/home/home.html',// 'android_asset/www/app/home/home.html',
+    selector: 'home',
+    moduleId: module.id,
+    templateUrl: 'home.html',// 'android_asset/www/app/home/home.html',
     directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES]
 })
 export class Home{

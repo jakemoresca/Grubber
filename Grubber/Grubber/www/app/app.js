@@ -18,8 +18,9 @@ var App = (function () {
     App = __decorate([
         ng.Component({
             selector: 'app',
-            templateUrl: './app/app.html',
-            styleUrls: ['./app/app.css'],
+            moduleId: module.id,
+            templateUrl: 'app.html',
+            styleUrls: ['app.css'],
             directives: [router.ROUTER_DIRECTIVES, MDL_1.MDL]
         }),
         router.RouteConfig(routes_config_1.APP_ROUTES), 
