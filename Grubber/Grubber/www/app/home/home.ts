@@ -5,7 +5,7 @@ import {Routes} from '../routes.config';
 
 @Component({
 	selector: 'home',
-	templateUrl: './app/home/home.html',
+    templateUrl: 'app/home/home.html',// 'android_asset/www/app/home/home.html',
     directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES]
 })
 export class Home{

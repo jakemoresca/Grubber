@@ -3,7 +3,7 @@ import {FormBuilder} from 'angular2/common';
 import * as router from 'angular2/router';
 import { Http, HTTP_BINDINGS } from 'angular2/http';
 import { App } from './app';
-import 'rxjs/add/operator/map';
+import 'rxjs/Rx';
 import { PeopleService } from './people/people.service';
 
 
