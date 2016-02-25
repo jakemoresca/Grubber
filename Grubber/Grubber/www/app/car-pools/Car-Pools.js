@@ -7,27 +7,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var ng = require('angular2/core');
-var router = require('angular2/router');
-var routes_config_1 = require('./routes.config');
-var MDL_1 = require('./core/MDL');
-var App = (function () {
-    function App(router) {
-        this.routes = routes_config_1.Routes;
-        router.navigateByUrl("/");
+var core_1 = require('angular2/core');
+var ng = require('angular2/common');
+var router_1 = require('angular2/router');
+var routes_config_1 = require('../routes.config');
+var CarPools = (function () {
+    function CarPools(_router) {
+        this._router = _router;
     }
-    App = __decorate([
-        ng.Component({
-            selector: 'app',
+    CarPools.prototype.goToPeople = function () {
+        this._router.navigate([("/" + routes_config_1.Routes.people.name), {}]);
+    };
+    CarPools = __decorate([
+        core_1.Component({
+            selector: 'car-pools',
             moduleId: module.id,
-            templateUrl: 'app.html',
-            styleUrls: ['app.css'],
-            directives: [router.ROUTER_DIRECTIVES, MDL_1.MDL]
-        }),
-        router.RouteConfig(routes_config_1.APP_ROUTES), 
-        __metadata('design:paramtypes', [router.Router])
-    ], App);
-    return App;
+            templateUrl: 'car-pools.html',
+            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES]
+        }), 
+        __metadata('design:paramtypes', [router_1.Router])
+    ], CarPools);
+    return CarPools;
 })();
-exports.App = App;
-//# sourceMappingURL=app.js.map
+exports.CarPools = CarPools;
+//# sourceMappingURL=Car-Pools.js.map

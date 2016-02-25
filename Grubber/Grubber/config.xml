@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myapp67d388" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.grubber100" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
   <name>Grubber</name>
-  <description>A blank project that uses Apache Cordova to help you build an app that targets multiple mobile platforms: Android, iOS, Windows, and Windows Phone.</description>
-  <author href="http://cordova.io" email="dev@cordova.apache.org">Apache Cordova Team</author>
+  <description>
+  </description>
+  <author href="http://cordova.io" email="dev@cordova.apache.org">Team Grubber</author>
   <content src="index.html" />
   <access origin="*" />
   <vs:features />
@@ -10,6 +11,11 @@
   <preference name="windows-target-version" value="8.1" />
   <!-- Support for Cordova 5.0.0 plugin system -->
   <plugin name="cordova-plugin-whitelist" version="1" />
+  <vs:plugin name="cordova-plugin-googlemaps" version="1.3.9">
+    <param name="API_KEY_FOR_ANDROID" value="AIzaSyAfbDL5liKdrptDkBFZw-SJ57hj548KHg4" />
+    <param name="API_KEY_FOR_IOS" value="AIzaSyAfbDL5liKdrptDkBFZw-SJ57hj548KHg4" />
+  </vs:plugin>
+  <allow-navigation href="*" />
   <allow-intent href="http://*/*" />
   <allow-intent href="https://*/*" />
   <allow-intent href="tel:*" />
@@ -110,4 +116,7 @@
   <preference name="ShowTitle" value="True" />
   <preference name="InAppBrowserStorageEnabled" value="True" />
   <preference name="SuppressesIncrementalRendering" value="True" />
+  <preference name="Orientation" value="default" />
+  <preference name="Fullscreen" value="True" />
+  <plugin name="cordova-plugin-geolocation" version="2.1.0" />
 </widget>

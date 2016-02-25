@@ -5,20 +5,41 @@
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'">
     <title>Grubber</title>
 
     <!-- Grubber references -->
     <link href="css/index.css" rel="stylesheet" />
+    <style>
+        @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          src: url(css/materialicons.woff2);
+        }
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        .material-icons {
+          font-family: 'Material Icons';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 24px;
+          line-height: 1;
+          letter-spacing: normal;
+          text-transform: none;
+          display: inline-block;
+          white-space: nowrap;
+          word-wrap: normal;
+          direction: ltr;
+          -moz-font-feature-settings: 'liga';
+          -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
     <link href="libs/material-design-lite/dist/material.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
 </head>
 <body class="mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
-    <!--<p>Hello, your application is ready!</p>-->
     <app>
-        Loading...
+        Loading App Please wait...
     </app>
 
     <!-- Cordova reference, this is added to your app when it's built. -->
@@ -27,7 +48,7 @@
     <script src="scripts/index.js"></script>
 
     <script src="libs/jQuery/dist/jquery.js"></script>
-    <script src="libs/material-design-lite/dist/material.js"></script>
+    <script defer src="libs/material-design-lite/dist/material.js"></script>
     <!--<script src="js/site.js"></script>-->
 
     <script src="libs/es6-shim.min.js"></script>

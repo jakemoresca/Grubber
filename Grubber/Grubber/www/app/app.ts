@@ -10,8 +10,14 @@ import {MDL} from './core/MDL';
     styleUrls: ['app.css'],
     directives: [router.ROUTER_DIRECTIVES, MDL]
 })
+
 @router.RouteConfig(APP_ROUTES)
+
 export class App {
     public routes = Routes;
+
+    constructor(router: router.Router) {
+        router.navigateByUrl("/");
+    }
 }
 
