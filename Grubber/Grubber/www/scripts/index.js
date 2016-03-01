@@ -15,6 +15,7 @@ var Grubber;
             // Handle the Cordova pause and resume events
             document.addEventListener('pause', onPause, false);
             document.addEventListener('resume', onResume, false);
+            console.log("navigator.geolocation works well");
             // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
         }
         function onPause() {
