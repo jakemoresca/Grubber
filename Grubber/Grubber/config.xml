@@ -11,10 +11,6 @@
   <preference name="windows-target-version" value="8.1" />
   <!-- Support for Cordova 5.0.0 plugin system -->
   <plugin name="cordova-plugin-whitelist" version="1" />
-  <vs:plugin name="cordova-plugin-googlemaps" version="1.3.9">
-    <param name="API_KEY_FOR_ANDROID" value="AIzaSyAfbDL5liKdrptDkBFZw-SJ57hj548KHg4" />
-    <param name="API_KEY_FOR_IOS" value="AIzaSyAfbDL5liKdrptDkBFZw-SJ57hj548KHg4" />
-  </vs:plugin>
   <allow-navigation href="*" />
   <allow-intent href="http://*/*" />
   <allow-intent href="https://*/*" />
@@ -119,4 +115,7 @@
   <preference name="Orientation" value="default" />
   <preference name="Fullscreen" value="True" />
   <plugin name="cordova-plugin-geolocation" version="2.1.0" />
+  <plugin name="plugin.google.maps" version="1.3.9">
+    <param name="API_KEY_FOR_ANDROID" value="AIzaSyAfbDL5liKdrptDkBFZw-SJ57hj548KHg4" />
+  </plugin>
 </widget>

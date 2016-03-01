@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ng = require('angular2/core');
 var router = require('angular2/router');
 var routes_config_1 = require('./routes.config');
-var MDL_1 = require('./core/MDL');
 var App = (function () {
     function App(router) {
         this.routes = routes_config_1.Routes;
@@ -22,7 +21,7 @@ var App = (function () {
             moduleId: module.id,
             templateUrl: 'app.html',
             styleUrls: ['app.css'],
-            directives: [router.ROUTER_DIRECTIVES, MDL_1.MDL]
+            directives: [router.ROUTER_DIRECTIVES]
         }),
         router.RouteConfig(routes_config_1.APP_ROUTES), 
         __metadata('design:paramtypes', [router.Router])

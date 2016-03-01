@@ -5,52 +5,29 @@
         Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.gstatic.com https://*.googleapis.com">-->
     <title>Grubber</title>
 
     <!-- Grubber references -->
     <link href="css/index.css" rel="stylesheet" />
-    <style>
-        @font-face {
-          font-family: 'Material Icons';
-          font-style: normal;
-          font-weight: 400;
-          src: url(css/materialicons.woff2);
-        }
-
-        .material-icons {
-          font-family: 'Material Icons';
-          font-weight: normal;
-          font-style: normal;
-          font-size: 24px;
-          line-height: 1;
-          letter-spacing: normal;
-          text-transform: none;
-          display: inline-block;
-          white-space: nowrap;
-          word-wrap: normal;
-          direction: ltr;
-          -moz-font-feature-settings: 'liga';
-          -moz-osx-font-smoothing: grayscale;
-        }
-    </style>
-    <link href="libs/material-design-lite/dist/material.css" rel="stylesheet" />
+    <!--<link href="libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />-->
+    <link rel="stylesheet/less" type="text/css" href="css/site.less" />
     <link rel="stylesheet" href="css/site.css" />
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3uuKjicoY5vJATz7gcE1lh84g9K96UL4"></script>-->
 </head>
-<body class="mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+<body style="display: block !important;">
     <app>
         Loading App Please wait...
     </app>
 
     <!-- Cordova reference, this is added to your app when it's built. -->
     <script src="cordova.js"></script>
-    <!--<script src="cordova_plugins.js"></script>-->
     <script src="plugins/cordova-plugin-geolocation/www/android/geolocation.js"></script>
     <script src="scripts/platformOverrides.js"></script>
     <script src="scripts/index.js"></script>
 
     <script src="libs/jQuery/dist/jquery.js"></script>
-    <script defer src="libs/material-design-lite/dist/material.js"></script>
+    <script src="libs/bootstrap-less/js/bootstrap.js"></script>
     <!--<script src="js/site.js"></script>-->
 
     <script src="libs/es6-shim.min.js"></script>
@@ -61,6 +38,10 @@
     <script src="libs/angular2.dev.js"></script>
     <script src="libs/router.dev.js"></script>
     <script src="libs/http.dev.js"></script>
+    <script src="libs/less.js"></script>
+
+    <script src="libs/angular2-google-maps.js"></script>
+
     <script>
             System.config({
                 packages: {

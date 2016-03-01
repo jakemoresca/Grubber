@@ -1,0 +1,74 @@
+{
+  "name": "bootstrap-less",
+  "version": "3.3.8",
+  "description": "less files for bootstrap",
+  "keywords": [
+    "bootstrap",
+    "less"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:distros/bootstrap-less.git"
+  },
+  "bugs": {
+    "url": "https://github.com/distros/bootstrap-less/issues"
+  },
+  "main": "js/bootstrap",
+  "format": "global",
+  "shim": {
+    "js/bootstrap": [
+      "jquery"
+    ],
+    "js/bootstrap.min": [
+      "jquery"
+    ],
+    "js/affix": [
+      "jquery"
+    ],
+    "js/alert": [
+      "jquery"
+    ],
+    "js/button": [
+      "jquery"
+    ],
+    "js/carousel": [
+      "jquery"
+    ],
+    "js/collapse": [
+      "jquery"
+    ],
+    "js/dropdown": [
+      "jquery"
+    ],
+    "js/modal": [
+      "jquery"
+    ],
+    "js/popover": [
+      "jquery"
+    ],
+    "js/scrollspy": [
+      "jquery"
+    ],
+    "js/tab": [
+      "jquery"
+    ],
+    "js/tooltip": [
+      "jquery"
+    ],
+    "js/transition": [
+      "jquery"
+    ]
+  },
+  "jspm": {
+    "dependencies": {
+      "jquery": "github:components/jquery"
+    }
+  },
+  "readme": "# Bootstrap-less\n\nThis package contains only the less files of bootstrap.\nIt can be used when compiling bootstrap from source using less.\n\nThis repository is about 607 kb.\n\n## Installation\n\n    npm install bootstrap-less\n\nThis package should be added to your less `paths` settings.\n\n    gulp.pipe(less({\n        paths: [\n            '.',\n            './node_modules/bootstrap-less'\n        ]\n    }))\n\nThen bootstrap can be included in any less file.\n\n    @import \"bootstrap/index\";\n    \nOr individual files can be imported instead of the index.\n\n    @import \"bootstrap/grid\";\n    @import \"bootstrap/affix\";\n    @import \"bootstrap/dropdowns\";\n    \n## Javascript\n\nThe javascript is included in the `js` directory.\n\nTo use it in your client install it using jspm.\n\n    jspm install bootstrap-less\n\nInclude all scripts by using the compiled version which includes all the javascript.\n\n    import \"bootstrap-less\";\n    \nOr include individual scripts if only some are needed.\n    \n    import \"bootstrap-less/js/affix\";\n    import \"bootstrap-less/js/dropdowns\";\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/distros/bootstrap-less",
+  "_id": "bootstrap-less@3.3.8",
+  "_shasum": "71f29dd5a7fffedfe89f1605bbadfe0a338dae53",
+  "_from": "bootstrap-less@3.3.8",
+  "_resolved": "https://registry.npmjs.org/bootstrap-less/-/bootstrap-less-3.3.8.tgz"
+}

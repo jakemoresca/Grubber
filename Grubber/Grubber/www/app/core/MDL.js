@@ -23,4 +23,4 @@ var MDL = (function () {
     return MDL;
 })();
 exports.MDL = MDL;
-//# sourceMappingURL=MDL.js.map
+//# sourceMappingURL=mdl.js.map

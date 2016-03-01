@@ -2,24 +2,26 @@ import {Component} from 'angular2/core';
 import * as ng from 'angular2/common';
 import {Router} from 'angular2/router';
 import {Routes} from '../routes.config';
+import {ANGULAR2_GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
 
 @Component({
     selector: 'home',
     moduleId: module.id,
-    templateUrl: 'home.html',// 'android_asset/www/app/home/home.html',
-    directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES]
+    templateUrl: 'home.html',
+    directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
+    styles: ['.sebm-google-map-container { height: 300px; }']
 })
 export class Home{
+
+    lat: number = 51.678418;
+    lng: number = 7.809007;
 
 	constructor(private _router: Router) {
 	}
 
-    goToPeople(){
-        this._router.navigate([`/${Routes.people.name}`, {}]);
-    }
-
     getCurrentPosition() {
 
+        var self = this;
         // onSuccess Callback
         // This method accepts a Position object, which contains the
         // current GPS coordinates
@@ -33,6 +35,9 @@ export class Home{
                 'Heading: ' + position.coords.heading + '\n' +
                 'Speed: ' + position.coords.speed + '\n' +
                 'Timestamp: ' + position.timestamp + '\n');
+            
+            self.lat = position.coords.latitude;
+            self.lng = position.coords.longitude;
         };
 
         // onError Callback receives a PositionError object

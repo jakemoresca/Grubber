@@ -10,15 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var ng = require('angular2/common');
 var router_1 = require('angular2/router');
-var routes_config_1 = require('../routes.config');
+var core_2 = require('angular2-google-maps/core');
 var Home = (function () {
     function Home(_router) {
         this._router = _router;
+        this.lat = 51.678418;
+        this.lng = 7.809007;
     }
-    Home.prototype.goToPeople = function () {
-        this._router.navigate([("/" + routes_config_1.Routes.people.name), {}]);
-    };
     Home.prototype.getCurrentPosition = function () {
+        var self = this;
         // onSuccess Callback
         // This method accepts a Position object, which contains the
         // current GPS coordinates
@@ -32,6 +32,8 @@ var Home = (function () {
                 'Heading: ' + position.coords.heading + '\n' +
                 'Speed: ' + position.coords.speed + '\n' +
                 'Timestamp: ' + position.timestamp + '\n');
+            self.lat = position.coords.latitude;
+            self.lng = position.coords.longitude;
         };
         // onError Callback receives a PositionError object
         //
@@ -46,7 +48,8 @@ var Home = (function () {
             selector: 'home',
             moduleId: module.id,
             templateUrl: 'home.html',
-            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES]
+            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, core_2.ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
+            styles: ['.sebm-google-map-container { height: 300px; }']
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], Home);

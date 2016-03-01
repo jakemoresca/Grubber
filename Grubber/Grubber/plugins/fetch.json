@@ -18,12 +18,9 @@
     "plugin.google.maps": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-googlemaps@1.3.9"
+            "id": "cordova-plugin-googlemaps"
         },
         "is_top_level": true,
-        "variables": {
-            "API_KEY_FOR_ANDROID": "AIzaSyAfbDL5liKdrptDkBFZw-SJ57hj548KHg4",
-            "API_KEY_FOR_IOS": "AIzaSyAfbDL5liKdrptDkBFZw-SJ57hj548KHg4"
-        }
+        "variables": {}
     }
 }
