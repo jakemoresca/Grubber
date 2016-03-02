@@ -10,19 +10,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var ng = require('angular2/common');
 var router_1 = require('angular2/router');
-var core_2 = require('angular2-google-maps/core');
+//import {ANGULAR2_GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
+var cordova_google_map_1 = require('../core/cordova-google-map');
 var Home = (function () {
     function Home(_router) {
         this._router = _router;
         this.lat = 51.678418;
         this.lng = 7.809007;
+        alert("get current");
+        this.getCurrentPosition();
+        //alert("watch location");
+        //this.watchCurrentPosition();
     }
+    Home.prototype.watchCurrentPosition = function () {
+        var self = this;
+        function success(pos) {
+            var crd = pos.coords;
+            alert("Success get location");
+            self.lat = crd.latitude;
+            self.lng = crd.longitude;
+        }
+        function error(err) {
+            alert('ERROR(' + err.code + '): ' + err.message);
+        }
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+        this.locationWatchId = navigator.geolocation.watchPosition(success, error, options);
+    };
     Home.prototype.getCurrentPosition = function () {
         var self = this;
-        // onSuccess Callback
-        // This method accepts a Position object, which contains the
-        // current GPS coordinates
-        //
         var onSuccess = function (position) {
             alert('Latitude: ' + position.coords.latitude + '\n' +
                 'Longitude: ' + position.coords.longitude + '\n' +
@@ -35,8 +54,6 @@ var Home = (function () {
             self.lat = position.coords.latitude;
             self.lng = position.coords.longitude;
         };
-        // onError Callback receives a PositionError object
-        //
         function onError(error) {
             alert('code: ' + error.code + '\n' +
                 'message: ' + error.message + '\n');
@@ -48,7 +65,7 @@ var Home = (function () {
             selector: 'home',
             moduleId: module.id,
             templateUrl: 'home.html',
-            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, core_2.ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
+            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, cordova_google_map_1.CordovaGoogleMap],
             styles: ['.sebm-google-map-container { height: 300px; }']
         }), 
         __metadata('design:paramtypes', [router_1.Router])

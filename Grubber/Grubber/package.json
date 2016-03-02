@@ -13,8 +13,7 @@
     "bootstrap-less": "3.3.8",
     "bootswatch-less": "3.3.4",
     "jquery": "2.2.0",
-    "less": "2.6.0",
-    "angular2-google-maps": "0.8.1"
+    "less": "2.6.0"
   },
   "devDependencies": {
     "gulp": "^3.9.0"
