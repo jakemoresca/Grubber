@@ -9,6 +9,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GrubberApi", "GrubberApi\Gr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BFAB22C1-05A3-43A3-91AF-12721BFCB095}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GrubberWeb", "GrubberWeb\GrubberWeb.xproj", "{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Android = Debug|Android
@@ -117,12 +119,48 @@ Global
 		{13F86AFC-EFA0-4CE1-867B-2160EAD5BD5B}.Release|Windows-x64.Build.0 = Release|Any CPU
 		{13F86AFC-EFA0-4CE1-867B-2160EAD5BD5B}.Release|Windows-x86.ActiveCfg = Release|Any CPU
 		{13F86AFC-EFA0-4CE1-867B-2160EAD5BD5B}.Release|Windows-x86.Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Android.Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|iOS.ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|iOS.Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows Phone (Universal).ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows Phone (Universal).Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows Phone 8.ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows Phone 8.Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows-AnyCPU.ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows-AnyCPU.Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows-ARM.ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows-ARM.Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows-x64.ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows-x64.Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows-x86.ActiveCfg = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Debug|Windows-x86.Build.0 = Debug|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Android.ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Android.Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|iOS.ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|iOS.Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows Phone (Universal).ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows Phone (Universal).Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows Phone 8.ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows Phone 8.Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows-AnyCPU.ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows-AnyCPU.Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows-ARM.ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows-ARM.Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows-x64.ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows-x64.Build.0 = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows-x86.ActiveCfg = Release|Any CPU
+		{FC9D1E9E-7594-4CFD-8094-BA9D30DE39B2}.Release|Windows-x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://jakemoresca.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -132,5 +170,8 @@ Global
 		SccProjectUniqueName2 = GrubberApi\\GrubberApi.xproj
 		SccProjectName2 = GrubberApi
 		SccLocalPath2 = GrubberApi
+		SccProjectUniqueName3 = GrubberWeb\\GrubberWeb.xproj
+		SccProjectName3 = GrubberWeb
+		SccLocalPath3 = GrubberWeb
 	EndGlobalSection
 EndGlobal
