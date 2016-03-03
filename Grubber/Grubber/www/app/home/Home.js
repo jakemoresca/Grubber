@@ -10,23 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var ng = require('angular2/common');
 var router_1 = require('angular2/router');
-//import {ANGULAR2_GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
-var cordova_google_map_1 = require('../core/cordova-google-map');
+var google_map_1 = require('../core/mapping/google-map');
 var Home = (function () {
     function Home(_router) {
         this._router = _router;
         this.lat = 51.678418;
         this.lng = 7.809007;
-        alert("get current");
+        this.useNative = false;
         this.getCurrentPosition();
-        //alert("watch location");
-        //this.watchCurrentPosition();
+        this.watchCurrentPosition();
     }
     Home.prototype.watchCurrentPosition = function () {
         var self = this;
         function success(pos) {
             var crd = pos.coords;
-            alert("Success get location");
             self.lat = crd.latitude;
             self.lng = crd.longitude;
         }
@@ -43,14 +40,14 @@ var Home = (function () {
     Home.prototype.getCurrentPosition = function () {
         var self = this;
         var onSuccess = function (position) {
-            alert('Latitude: ' + position.coords.latitude + '\n' +
-                'Longitude: ' + position.coords.longitude + '\n' +
-                'Altitude: ' + position.coords.altitude + '\n' +
-                'Accuracy: ' + position.coords.accuracy + '\n' +
-                'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-                'Heading: ' + position.coords.heading + '\n' +
-                'Speed: ' + position.coords.speed + '\n' +
-                'Timestamp: ' + position.timestamp + '\n');
+            //alert('Latitude: ' + position.coords.latitude + '\n' +
+            //    'Longitude: ' + position.coords.longitude + '\n' +
+            //    'Altitude: ' + position.coords.altitude + '\n' +
+            //    'Accuracy: ' + position.coords.accuracy + '\n' +
+            //    'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+            //    'Heading: ' + position.coords.heading + '\n' +
+            //    'Speed: ' + position.coords.speed + '\n' +
+            //    'Timestamp: ' + position.timestamp + '\n');
             self.lat = position.coords.latitude;
             self.lng = position.coords.longitude;
         };
@@ -65,7 +62,7 @@ var Home = (function () {
             selector: 'home',
             moduleId: module.id,
             templateUrl: 'home.html',
-            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, cordova_google_map_1.CordovaGoogleMap],
+            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, google_map_1.GoogleMap],
             styles: ['.sebm-google-map-container { height: 300px; }']
         }), 
         __metadata('design:paramtypes', [router_1.Router])

@@ -24,9 +24,6 @@ var Grubber;
         function onResume() {
             // TODO: This application has been reactivated. Restore application state here.
         }
-        function onMapInit(map) {
-            alert("The google map is available on this device.");
-        }
     })(Application = Grubber.Application || (Grubber.Application = {}));
     window.onload = function () {
         Application.initialize();

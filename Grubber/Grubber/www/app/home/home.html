@@ -21,13 +21,13 @@
         </div>
     </div>
 
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--10-col-phone mdl-cell--top">
+    <!--<div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--10-col-phone mdl-cell--top">
         <div class="wide-card mdl-card mdl-shadow--2dp">
             <div class="mdl-card__title mdl-card--expand">
                 <div class="card-heading" style="height: 100%;">
                     <h5>March 1, 2016 5:00 PM</h5>
                 </div>
-                <!--<img class="card-image card-image-centered" itemprop="image" src="../../Images/warcraft.jpg" />-->
+                <img class="card-image card-image-centered" itemprop="image" src="../../Images/warcraft.jpg" />
             </div>
             <div class="mdl-card__supporting-text">
                 Driver: Driver Name
@@ -40,8 +40,6 @@
                 </a>
             </div>
         </div>
-    </div>
-    Latitude: {{lat}}
-    Longitude: {{lng}}
-    <div cordovaGoogleMap [latitude]="lat" [longitude]="lng" style="height: 330px;"></div>
+    </div>-->
+    <div googleMap [latitude]="lat" [longitude]="lng" [useNative]="false" style="height: 330px;"></div>
 </div>

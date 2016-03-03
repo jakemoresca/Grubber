@@ -2,6 +2,9 @@
 // http://go.microsoft.com/fwlink/?LinkID=397705
 // To debug code on page load in Ripple or on Android devices/emulators: launch your app, set breakpoints, 
 // and then run "window.location.reload()" in the JavaScript Console.
+
+declare var plugin: any;
+
 module Grubber {
     "use strict";
 
@@ -25,10 +28,6 @@ module Grubber {
 
         function onResume() {
             // TODO: This application has been reactivated. Restore application state here.
-        }
-
-        function onMapInit(map) {
-            alert("The google map is available on this device.");
         }
     }
 
