@@ -9,12 +9,12 @@ import {GoogleMap} from '../core/mapping/google-map';
     moduleId: module.id,
     templateUrl: 'home.html',
     directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, GoogleMap],
-    styles: ['.sebm-google-map-container { height: 300px; }']
+    styles: ['.google-map-container { height: 330px; }']
 })
 export class Home{
 
-    lat: number = 51.678418;
-    lng: number = 7.809007;
+    lat: number = 14.124;
+    lng: number = 121.41512;
     locationWatchId: number;
     useNative: boolean = false;
 

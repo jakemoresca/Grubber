@@ -14,8 +14,8 @@ var google_map_1 = require('../core/mapping/google-map');
 var Home = (function () {
     function Home(_router) {
         this._router = _router;
-        this.lat = 51.678418;
-        this.lng = 7.809007;
+        this.lat = 14.124;
+        this.lng = 121.41512;
         this.useNative = false;
         this.getCurrentPosition();
         this.watchCurrentPosition();
@@ -63,7 +63,7 @@ var Home = (function () {
             moduleId: module.id,
             templateUrl: 'home.html',
             directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, google_map_1.GoogleMap],
-            styles: ['.sebm-google-map-container { height: 300px; }']
+            styles: ['.google-map-container { height: 330px; }']
         }), 
         __metadata('design:paramtypes', [router_1.Router])
     ], Home);

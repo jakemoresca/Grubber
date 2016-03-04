@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!--
+        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
+        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.gstatic.com https://*.googleapis.com">-->
+    <title>Grubber</title>
+
+    <!-- Grubber references -->
+    <link href="css/index.css" rel="stylesheet" />
+    <!--<link href="libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />-->
+    <link rel="stylesheet/less" type="text/css" href="css/site.less" />
+    <link rel="stylesheet" href="css/site.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3uuKjicoY5vJATz7gcE1lh84g9K96UL4"></script>
+</head>
+<body style="display: block !important;">
+    <app>
+        <div class="sk-folding-cube">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+    </app>
+
+    <script src="libs/es6-shim.min.js"></script>
+    <script src="libs/system-polyfills.js"></script>
+    <script src="libs/angular2-polyfills.js"></script>
+    <script src="libs/system.js"></script>
+    <script src="libs/Rx.js"></script>
+    <script src="libs/angular2.dev.js"></script>
+    <script src="libs/router.dev.js"></script>
+    <script src="libs/http.dev.js"></script>
+    <script src="libs/less.js"></script>
+    <script>
+            System.config({
+                packages: {
+                    app: {
+                        defaultExtension: 'js'
+                    },
+
+                }
+            });
+    </script>
+    <script>
+            System.import('app/bootstrap')
+                  .then(null, console.error.bind(console));
+    </script>
+</body>
+</html>

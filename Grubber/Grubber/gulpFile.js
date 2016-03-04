@@ -14,7 +14,6 @@ var libsToMove = [
    paths.npmSrc + '/systemjs/dist/system-polyfills.js',
    paths.npmSrc + '/rxjs/bundles/Rx.js',
    paths.npmSrc + '/angular2/bundles/angular2.dev.js',
-   paths.npmSrc + '/angular2-google-maps/bundles/angular2-google-maps.js',
    paths.npmSrc + '/angular2/bundles/router.dev.js',
    paths.npmSrc + '/angular2/bundles/http.dev.js',
    paths.npmSrc + '/es6-shim/es6-shim.min.js',

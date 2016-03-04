@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Grubber</title>
+
+        <environment names="Development">
+            @*<link rel="stylesheet" href="~/css/site.less" />*@
+            <link rel="stylesheet" href="~/css/site.css" />
+            <link rel="stylesheet" href="~/css/index.css" />
+        </environment>
+        <environment names="Staging,Production">
+            @*<link rel="stylesheet" href="~/css/site.less" />*@
+            <link rel="stylesheet" href="~/css/site.css" />
+            <link rel="stylesheet" href="~/css/index.css" />
+        </environment>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3uuKjicoY5vJATz7gcE1lh84g9K96UL4"></script>
+    </head>
+    <body class="mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+        @RenderBody()
+
+        <environment names="Development">
+            <script src="~/libs/jquery/dist/jquery.js"></script>
+            <script src="~/libs/bootstrap-less/js/bootstrap.js"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                    asp-fallback-src="~/libs/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="~/libs/bootstrap-less/js/bootstrap.js"></script>
+        </environment>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
