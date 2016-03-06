@@ -30,7 +30,7 @@ gulp.task('moveBootstrap', function () {
 });
 
 gulp.task('moveBootswatch', function () {
-    return gulp.src(['./node_modules/bootswatch-less/bootswatch/sandstone/**/*']).pipe(gulp.dest('./wwwroot/libs/bootswatch/sandstone'));
+    return gulp.src(['./node_modules/bootswatch-less/bootswatch/flatly/**/*']).pipe(gulp.dest('./wwwroot/libs/bootswatch/flatly'));
 });
 
 gulp.task('movejQuery', function () {
