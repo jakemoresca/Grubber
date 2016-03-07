@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../../../scripts/typings/google.maps.d.ts" />
 
-import {Directive, ElementRef, AfterViewInit, Input} from 'angular2/core';
+import {Directive, ElementRef, AfterViewInit, Input, Output, EventEmitter} from 'angular2/core';
 
 declare var plugin: any;
 
@@ -10,12 +10,19 @@ declare var plugin: any;
 export class GoogleMap implements AfterViewInit
 {
     private _useNative: Boolean = false;
-    private _latitude: number;
-    private _longitude: number;
+    private _latitude: number = 14.550157;
+    private _longitude: number = 121.046736;
     private _mapDiv: Element;
     private _map: any;
     private _currentLocationMarker: google.maps.Marker;
     private _markers: Array<any>;
+    private _draggableMarker: boolean = false;
+
+    @Output() locationChanged = new EventEmitter();
+
+    @Input() set draggableMarker(isDraggable: boolean) {
+        this._draggableMarker = isDraggable;
+    }
 
     @Input() set useNative(isNative: Boolean) {
         this._useNative = isNative;
@@ -143,8 +150,17 @@ export class GoogleMap implements AfterViewInit
             this._currentLocationMarker = new google.maps.Marker({
                 position: pos,
                 map: this._map,
-                title: 'Current Location'
+                title: 'Current Location',
+                draggable: this._draggableMarker
             });
+
+            var self = this;
+
+            this._currentLocationMarker.addListener('dragend', function (e: google.maps.MouseEvent) {
+                self.locationChanged.emit({ latitude: e.latLng.lat(), longitude: e.latLng.lng()});
+            });
+
+
             return;
         }
         

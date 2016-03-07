@@ -12,8 +12,19 @@ var core_1 = require('angular2/core');
 var GoogleMap = (function () {
     function GoogleMap(el) {
         this._useNative = false;
+        this._latitude = 14.550157;
+        this._longitude = 121.046736;
+        this._draggableMarker = false;
+        this.locationChanged = new core_1.EventEmitter();
         this._mapDiv = el.nativeElement;
     }
+    Object.defineProperty(GoogleMap.prototype, "draggableMarker", {
+        set: function (isDraggable) {
+            this._draggableMarker = isDraggable;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(GoogleMap.prototype, "useNative", {
         set: function (isNative) {
             this._useNative = isNative;
@@ -139,12 +150,26 @@ var GoogleMap = (function () {
             this._currentLocationMarker = new google.maps.Marker({
                 position: pos,
                 map: this._map,
-                title: 'Current Location'
+                title: 'Current Location',
+                draggable: this._draggableMarker
+            });
+            var self = this;
+            this._currentLocationMarker.addListener('dragend', function (e) {
+                self.locationChanged.emit({ latitude: e.latLng.lat(), longitude: e.latLng.lng() });
             });
             return;
         }
         this._currentLocationMarker.setPosition(pos);
     };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], GoogleMap.prototype, "locationChanged", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean), 
+        __metadata('design:paramtypes', [Boolean])
+    ], GoogleMap.prototype, "draggableMarker", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean), 
