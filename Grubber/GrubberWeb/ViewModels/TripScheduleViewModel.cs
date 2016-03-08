@@ -13,6 +13,6 @@ namespace GrubberWeb.ViewModels
         public string ScheduleTime { get; set; }
         public DateTime ScheduleDate { get; set; }
         public bool IsNew { get; set; }
-        public IList<TripLandMark> LandMarks { get; set; }
+        public IList<TripLandMarkViewModel> LandMarks { get; set; }
     }
 }

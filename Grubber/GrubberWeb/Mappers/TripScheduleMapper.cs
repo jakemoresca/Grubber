@@ -14,7 +14,7 @@ namespace GrubberWeb.Mappers
                 Id = viewModel.Id,
                 CarId = viewModel.CarId,
                 ScheduleDateTime = Convert.ToDateTime(string.Format("{0} {1}", viewModel.ScheduleDate.ToString("MM/dd/yyyy"), viewModel.ScheduleTime)),
-                TripLandMarks = viewModel.LandMarks
+                TripLandMarks = viewModel.LandMarks.Select(tl => ToModel(tl)).ToList()
             };
         }
 
@@ -26,7 +26,29 @@ namespace GrubberWeb.Mappers
                 CarId = model.CarId,
                 ScheduleDate = Convert.ToDateTime(model.ScheduleDateTime.ToString("MM/dd/yyyy")),
                 ScheduleTime = model.ScheduleDateTime.ToString("hh:mm tt"),
-                LandMarks = model.TripLandMarks
+                LandMarks = model.TripLandMarks.Select(tl => ToViewModel(tl)).ToList()
+            };
+        }
+
+        private TripLandMark ToModel(TripLandMarkViewModel viewModel)
+        {
+            return new TripLandMark
+            {
+                Id = viewModel.Id,
+                LandMarkName = viewModel.LandMarkName,
+                Latitude = viewModel.Latitude,
+                Longitude = viewModel.Longitude
+            };
+        }
+
+        private TripLandMarkViewModel ToViewModel(TripLandMark model)
+        {
+            return new TripLandMarkViewModel
+            {
+                Id = model.Id,
+                LandMarkName = model.LandMarkName,
+                Latitude = model.Latitude,
+                Longitude = model.Longitude
             };
         }
     }
