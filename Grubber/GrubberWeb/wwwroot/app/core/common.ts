@@ -11,3 +11,17 @@
         return EnumHelper.getValues(e).map(v => { return { name: e[v] as string, value: v }; });
     }
 }
+
+export class ObjHelper {
+    static copyObject<T>(object: T): T {
+        var objectCopy = <T>{};
+
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                objectCopy[key] = object[key];
+            }
+        }
+
+        return objectCopy;
+    }
+}

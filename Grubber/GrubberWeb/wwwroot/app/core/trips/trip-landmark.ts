@@ -3,4 +3,5 @@ export class TripLandMark {
     public landMarkName: string;
     public latitude: number;
     public longitude: number;
+    public isNew: boolean;
 }

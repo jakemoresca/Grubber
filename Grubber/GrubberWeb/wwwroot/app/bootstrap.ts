@@ -6,6 +6,8 @@ import { Http, HTTP_BINDINGS } from 'angular2/http';
 import { App } from './app';
 import 'rxjs/Rx';
 import { PeopleService } from './people/people.service';
+import { CarService } from './my-car/car.service';
+import { TripService } from './my-car/trip.service';
 //import {ANGULAR2_GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
 
 
@@ -14,5 +16,7 @@ bootstrap(App, [
     provide(router.APP_BASE_HREF, { useValue: '/' }),
     HTTP_BINDINGS,
     FormBuilder,
-    PeopleService
+    PeopleService,
+    CarService,
+    TripService
 ]);

@@ -26,7 +26,9 @@ gulp.task('moveToLibs', function () {
 });
 
 gulp.task('moveBootstrap', function () {
-    return gulp.src(['./node_modules/bootstrap-less/**/*']).pipe(gulp.dest('./wwwroot/libs/bootstrap-less'));
+    gulp.src(['./node_modules/bootstrap-less/**/*']).pipe(gulp.dest('./wwwroot/libs/bootstrap-less'));
+    gulp.src(['./node_modules/bootstrap-datepicker/dist/**/*']).pipe(gulp.dest('./wwwroot/libs/bootstrap-datepicker'));
+    return gulp.src(['./node_modules/bootstrap-less/fonts/**/*']).pipe(gulp.dest('./wwwroot/fonts'));
 });
 
 gulp.task('moveBootswatch', function () {

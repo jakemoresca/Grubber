@@ -11,15 +11,26 @@ var core_1 = require('angular2/core');
 var ng = require('angular2/common');
 var router_1 = require('angular2/router');
 var car_1 = require('../core/cars/car');
-var car_make_1 = require('../core/cars/car-make');
 var trip_schedule_1 = require('../core/trips/trip-schedule');
 var trip_landmark_1 = require('../core/trips/trip-landmark');
 var common_1 = require('../core/common');
 var google_map_1 = require('../core/mapping/google-map');
+var bootstrap_datepicker_1 = require('../core/datepicker/bootstrap-datepicker');
+var car_service_1 = require('./car.service');
+var trip_service_1 = require('./trip.service');
 var MyCar = (function () {
-    function MyCar(_router) {
+    function MyCar(_router, _carService, _tripService) {
+        var _this = this;
         this._router = _router;
+        this._carService = _carService;
+        this._tripService = _tripService;
         this.dayOfWeeks = common_1.EnumHelper.getNamesAndValues(trip_schedule_1.DayOfWeek);
+        _carService.getCarMakes()
+            .subscribe(function (res) { return _this.carMakes = res; });
+        _carService.getCar(1)
+            .subscribe(function (res) { return _this.car = res; });
+        _tripService.getTripSchedule(1)
+            .subscribe(function (res) { return _this.tripSchedules = res; });
         this.initializeModels();
         this.mockCarAndTripSchedules();
         this.initializeModal();
@@ -56,51 +67,54 @@ var MyCar = (function () {
         this.currentLandMark.landMarkName = "Net Park";
         this.currentLandMark.latitude = 14.550157;
         this.currentLandMark.longitude = 121.046736;
+        this.currentLandMarkClone = common_1.ObjHelper.copyObject(this.currentLandMark);
+        this.car = new car_1.Car();
+        this.carMakes = new Array();
+        this.tripSchedules = new Array();
     };
     MyCar.prototype.initializeModal = function () {
-        this.landMarkModal = $('#viewLandMarkModal');
+        this.landMarkModalId = "#viewLandMarkModal";
     };
     MyCar.prototype.mockCarAndTripSchedules = function () {
-        var hyundai = new car_make_1.CarMake();
-        hyundai.id = 2;
-        hyundai.name = "Hyundai";
-        var honda = new car_make_1.CarMake();
-        honda.id = 1;
-        honda.name = "Honda";
-        this.carMakes = new Array(honda, hyundai);
-        this.car = new car_1.Car();
-        this.car.makeId = 2;
-        this.car.color = "Black";
-        this.car.noOfSeats = 4;
-        this.car.plateNo = "AAO3203";
-        this.car.model = "Accent";
-        var landMarkSMMarikina = new trip_landmark_1.TripLandMark();
-        landMarkSMMarikina.landMarkName = "SM Marikina";
-        landMarkSMMarikina.latitude = 14.6275;
-        landMarkSMMarikina.longitude = 121.0844;
-        landMarkSMMarikina.id = 1;
-        var landMarkMDC100 = new trip_landmark_1.TripLandMark();
-        landMarkMDC100.landMarkName = "MDC 100";
-        landMarkMDC100.latitude = 14.607641;
-        landMarkMDC100.longitude = 121.078578;
-        landMarkMDC100.id = 2;
-        var mondayTimeIn = new trip_schedule_1.TripSchedule();
-        mondayTimeIn.scheduleTime = "6:30 AM";
-        mondayTimeIn.scheduleDay = trip_schedule_1.DayOfWeek.Monday;
-        mondayTimeIn.type = trip_schedule_1.TripType.In;
-        mondayTimeIn.landMarks = new Array(landMarkSMMarikina, landMarkMDC100);
-        var mondayTimeOut = new trip_schedule_1.TripSchedule();
-        mondayTimeOut.scheduleTime = "5:00 PM";
-        mondayTimeOut.scheduleDay = trip_schedule_1.DayOfWeek.Monday;
-        mondayTimeOut.type = trip_schedule_1.TripType.Out;
-        mondayTimeOut.landMarks = new Array(landMarkSMMarikina, landMarkMDC100);
-        var wednesDayTimeIn = new trip_schedule_1.TripSchedule();
-        wednesDayTimeIn.scheduleTime = "8:30 AM";
-        wednesDayTimeIn.scheduleDay = trip_schedule_1.DayOfWeek.Wednesday;
-        wednesDayTimeIn.type = trip_schedule_1.TripType.In;
-        wednesDayTimeIn.landMarks = new Array(landMarkSMMarikina, landMarkMDC100);
+        //var hyundai: CarMake = new CarMake();
+        //hyundai.id = 2;
+        //hyundai.name = "Hyundai";
+        //var honda: CarMake = new CarMake();
+        //honda.id = 1;
+        //honda.name = "Honda";
+        //this.carMakes = new Array<CarMake>(honda, hyundai);
+        //this.car = new Car();
+        //this.car.makeId = 2;
+        //this.car.color = "Black";
+        //this.car.noOfSeats = 4;
+        //this.car.plateNo = "AAO3203";
+        //this.car.model = "Accent";
+        //var landMarkSMMarikina = new TripLandMark();
+        //landMarkSMMarikina.landMarkName = "SM Marikina";
+        //landMarkSMMarikina.latitude = 14.6275;
+        //landMarkSMMarikina.longitude = 121.0844;
+        //landMarkSMMarikina.isNew = false;
+        //landMarkSMMarikina.id = 1;
+        //var landMarkMDC100 = new TripLandMark();
+        //landMarkMDC100.landMarkName = "MDC 100";
+        //landMarkMDC100.latitude = 14.607641;
+        //landMarkMDC100.longitude = 121.078578;
+        //landMarkMDC100.isNew = false;
+        //landMarkMDC100.id = 2;
+        //var mondayTimeIn = new TripSchedule();
+        //mondayTimeIn.scheduleTime = "6:30 AM";
+        //mondayTimeIn.scheduleDate = new Date("3/7/2016");
+        //mondayTimeIn.landMarks = new Array<TripLandMark>(landMarkSMMarikina, landMarkMDC100);
+        //var mondayTimeOut = new TripSchedule();
+        //mondayTimeOut.scheduleTime = "5:00 PM";
+        //mondayTimeOut.scheduleDate = new Date("3/7/2016");
+        //mondayTimeOut.landMarks = new Array<TripLandMark>(landMarkSMMarikina, landMarkMDC100);
+        //var wednesDayTimeIn = new TripSchedule();
+        //wednesDayTimeIn.scheduleTime = "8:30 AM";
+        //wednesDayTimeIn.scheduleDate = new Date("3/9/2016");
+        //wednesDayTimeIn.landMarks = new Array<TripLandMark>(landMarkSMMarikina, landMarkMDC100);
         this.driverNote = "No sleeping. zzzZZZZzzz";
-        this.tripSchedules = new Array(mondayTimeIn, mondayTimeOut, wednesDayTimeIn);
+        //this.tripSchedules = new Array<TripSchedule>(mondayTimeIn, mondayTimeOut, wednesDayTimeIn);
     };
     MyCar.prototype.onMakeChange = function (newValue) {
         this.car.makeId = newValue;
@@ -110,40 +124,91 @@ var MyCar = (function () {
         var address = newValue;
         var self = this;
         geocoder.geocode({
-            'address': this.currentLandMark.landMarkName,
+            'address': this.currentLandMarkClone.landMarkName,
             componentRestrictions: {
                 country: 'PH'
             }
         }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
-                self.currentLandMark.latitude = results[0].geometry.location.lat();
-                self.currentLandMark.longitude = results[0].geometry.location.lng();
+                self.currentLandMarkClone.latitude = results[0].geometry.location.lat();
+                self.currentLandMarkClone.longitude = results[0].geometry.location.lng();
             }
             else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
     };
-    MyCar.prototype.reverseGeocodeAddress = function (latitude, longitude) {
-        alert(latitude);
-        alert(longitude);
+    MyCar.prototype.reverseGeocodeAddress = function (newValue) {
+        var latlng = new google.maps.LatLng(newValue.latitude, newValue.longitude);
+        var geocoder = new google.maps.Geocoder();
+        var self = this;
+        geocoder.geocode({ 'location': latlng }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    self.currentLandMarkClone.landMarkName = results[1].formatted_address;
+                }
+                else {
+                    window.alert('No results found');
+                }
+            }
+            else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
     };
-    MyCar.prototype.showModal = function (tripLandMark) {
-        $('#viewLandMarkModal').modal('show');
-        $('#viewLandMarkModal').on("shown.bs.modal", function () {
+    MyCar.prototype.showModal = function (tripLandMark, tripSchedule) {
+        $(this.landMarkModalId).modal('show');
+        $(this.landMarkModalId).on("shown.bs.modal", function () {
             google.maps.event.trigger(document.getElementById("mapLandMark"), "resize");
         });
         this.currentLandMark = tripLandMark;
+        this.currentTripSchedule = tripSchedule;
+        this.currentLandMarkClone = common_1.ObjHelper.copyObject(this.currentLandMark);
+    };
+    MyCar.prototype.saveLandMark = function () {
+        this.currentLandMark.landMarkName = this.currentLandMarkClone.landMarkName;
+        this.currentLandMark.latitude = this.currentLandMarkClone.latitude;
+        this.currentLandMark.longitude = this.currentLandMarkClone.longitude;
+        if (this.currentLandMarkClone.isNew == true) {
+            this.currentTripSchedule.landMarks.push(this.currentLandMark);
+        }
+        $(this.landMarkModalId).modal('hide');
+    };
+    MyCar.prototype.deleteLandMark = function (tripLandMark, tripSchedule) {
+        var index = tripSchedule.landMarks.indexOf(tripLandMark);
+        if (index > -1) {
+            tripSchedule.landMarks.splice(index, 1);
+        }
+    };
+    MyCar.prototype.newLandMark = function (tripSchedule) {
+        var newLandMark = new trip_landmark_1.TripLandMark();
+        newLandMark.landMarkName = "Net Park";
+        newLandMark.latitude = 14.550157;
+        newLandMark.longitude = 121.046736;
+        newLandMark.isNew = true;
+        this.showModal(newLandMark, tripSchedule);
+    };
+    MyCar.prototype.newTripSchedule = function () {
+        var newTripSchedule = new trip_schedule_1.TripSchedule();
+        newTripSchedule.carId = this.car.id;
+        newTripSchedule.landMarks = new Array();
+        this.tripSchedules.push(newTripSchedule);
+    };
+    MyCar.prototype.removeSchedule = function (tripSchedule) {
+        var index = this.tripSchedules.indexOf(tripSchedule);
+        if (index > -1) {
+            this.tripSchedules.splice(index, 1);
+        }
     };
     MyCar = __decorate([
         core_1.Component({
             selector: 'my-car',
             moduleId: module.id,
             templateUrl: 'my-car.html',
-            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, google_map_1.GoogleMap],
+            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, google_map_1.GoogleMap, bootstrap_datepicker_1.BootstrapDatePicker],
             styles: ['.google-map-container { height: 330px; }']
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, car_service_1.CarService, trip_service_1.TripService])
     ], MyCar);
     return MyCar;
 })();

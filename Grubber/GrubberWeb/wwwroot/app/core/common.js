@@ -13,4 +13,19 @@ var EnumHelper = (function () {
     return EnumHelper;
 })();
 exports.EnumHelper = EnumHelper;
+var ObjHelper = (function () {
+    function ObjHelper() {
+    }
+    ObjHelper.copyObject = function (object) {
+        var objectCopy = {};
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                objectCopy[key] = object[key];
+            }
+        }
+        return objectCopy;
+    };
+    return ObjHelper;
+})();
+exports.ObjHelper = ObjHelper;
 //# sourceMappingURL=common.js.map

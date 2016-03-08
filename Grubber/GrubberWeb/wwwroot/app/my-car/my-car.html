@@ -51,36 +51,51 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Trip Details</h3>
+                <h3 class="panel-title">Trip Details
+                    <button type="button" class="btn btn-default btn-sm" aria-label="Add Trip Schedule" (click)="newTripSchedule()">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </h3> 
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">
 
                     <div *ngFor="#tripSchedule of tripSchedules; #ts = index">
-                        <span [ngSwitch]="tripSchedule.scheduleDay">
-                            <span *ngSwitchWhen="0">Sunday</span>
-                            <span *ngSwitchWhen="1">Monday</span>
-                            <span *ngSwitchWhen="2">Tuesday</span>
-                            <span *ngSwitchWhen="3">Wednesday</span>
-                            <span *ngSwitchWhen="4">Thursday</span>
-                            <span *ngSwitchWhen="5">Friday</span>
-                            <span *ngSwitchWhen="6">Saturday</span>
-                        </span>
                         <div class="form-group">
-                            <span [ngSwitch]="tripSchedule.type">
-                                <label for="inputTime" class="col-sm-3 control-label" *ngSwitchWhen="0">Time In</label>
-                                <label for="inputTime" class="col-sm-3 control-label" *ngSwitchWhen="1">Time Out</label>
-                            </span>
+                            <label for="inputScheduleDay" class="col-sm-3 control-label">Date</label>
+                            <div class="col-sm-9">
+                                <div class='input-group date' bootstrap-datepicker>
+                                    <input type='text' class="form-control" [(ngModel)]="tripSchedule.scheduleDate" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTime" class="col-sm-3 control-label">Time</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" id="inputTime" [(ngModel)]="tripSchedule.scheduleTime">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Landmark</label>
+                            <label class="col-sm-3 control-label">Stops</label>
+                            <button type="button" class="btn btn-default btn-sm" aria-label="Add Landmark" (click)="newLandMark(tripSchedule)">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </button>
                             <div class="col-sm-9 col-sm-offset-3" *ngFor="#landMark of tripSchedule.landMarks; #lm = index">
-                                <button class="btn btn-link" (click)="showModal(landMark)">{{landMark.landMarkName}}</button>
+                                <button class="btn btn-link col-xs-10" (click)="showModal(landMark, tripSchedule)">{{landMark.landMarkName}}</button>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Delete Landmark" (click)="deleteLandMark(landMark, tripSchedule)">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-primary" (click)="removeSchedule(tripSchedule)">Remove Schedule</button>
+                            </div>
+                        </div>
+                        <hr />
                     </div>
 
                     <div class="form-group">
@@ -110,19 +125,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputModel" [(ngModel)]="currentLandMark.landMarkName">
+                        <input type="text" class="form-control" id="inputModel" [(ngModel)]="currentLandMarkClone.landMarkName">
                     </div>
                     <div class="col-sm-4">
                         <button class="btn btn-default" (click)="searchLandMarkName($event)">Change</button>
                     </div>
                     <div class="col-sm-12">
-                        <div class="google-map-container" id="mapLandMark" googleMap [latitude]="currentLandMark.latitude" [longitude]="currentLandMark.longitude"
-                             [useNative]="false" [draggableMarker]="true" (locationChanged)="reverseGeocodeAddress()"></div>
+                        <div class="google-map-container" id="mapLandMark" googleMap [latitude]="currentLandMarkClone.latitude" [longitude]="currentLandMarkClone.longitude"
+                             [useNative]="false" [draggableMarker]="true" (locationChanged)="reverseGeocodeAddress($event)"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" (click)="saveLandMark()">Save changes</button>
                 </div>
             </div>
         </div>

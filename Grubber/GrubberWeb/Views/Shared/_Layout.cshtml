@@ -8,11 +8,13 @@
         <environment names="Development">
             @*<link rel="stylesheet" href="~/css/site.less" />*@
             <link rel="stylesheet" href="~/css/site.css" />
+            <link href="~/libs/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
             <link rel="stylesheet" href="~/css/index.css" />
         </environment>
         <environment names="Staging,Production">
             @*<link rel="stylesheet" href="~/css/site.less" />*@
             <link rel="stylesheet" href="~/css/site.css" />
+            <link href="~/libs/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
             <link rel="stylesheet" href="~/css/index.css" />
         </environment>
 
@@ -24,6 +26,7 @@
         <environment names="Development">
             <script src="~/libs/jquery/dist/jquery.js"></script>
             <script src="~/libs/bootstrap-less/js/bootstrap.js"></script>
+            <script src="~/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
         </environment>
         <environment names="Staging,Production">
             <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
@@ -31,6 +34,7 @@
                     asp-fallback-test="window.jQuery">
             </script>
             <script src="~/libs/bootstrap-less/js/bootstrap.js"></script>
+            <script src="~/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
         </environment>
 
         @RenderSection("scripts", required: false)

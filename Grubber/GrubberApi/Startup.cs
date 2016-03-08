@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNet.Mvc.Formatters;
 using Newtonsoft.Json.Serialization;
+using GrubberApi.Models;
+using Microsoft.Data.Entity;
 
 namespace GrubberApi
 {
@@ -38,6 +40,12 @@ namespace GrubberApi
             // Add application services.
             //services.AddTransient<IEmailSender, AuthMessageSender>();
             //services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            var connection = @"Server=.\SQLEXPRESS;Database=Grubber;Trusted_Connection=True;";
+
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<GrubberContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

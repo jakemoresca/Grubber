@@ -1,1 +1,1 @@
-{"version":3,"file":"trip-landmark.js","sourceRoot":"","sources":["trip-landmark.ts"],"names":["TripLandMark","TripLandMark.constructor"],"mappings":"AAAA;IAAAA;IAKAC,CAACA;IAADD,mBAACA;AAADA,CAACA,AALD,IAKC;AALY,oBAAY,eAKxB,CAAA"}
+{"version":3,"file":"trip-landmark.js","sourceRoot":"","sources":["trip-landmark.ts"],"names":["TripLandMark","TripLandMark.constructor"],"mappings":"AAAA;IAAAA;IAMAC,CAACA;IAADD,mBAACA;AAADA,CAACA,AAND,IAMC;AANY,oBAAY,eAMxB,CAAA"}

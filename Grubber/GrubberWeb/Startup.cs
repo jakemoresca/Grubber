@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNet.Mvc.Formatters;
+using GrubberApi.Models;
+using Microsoft.Data.Entity;
+using GrubberWeb.Mappers;
 
 namespace GrubberWeb
 {
@@ -37,8 +40,18 @@ namespace GrubberWeb
                     .SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
             });
             // Add application services.
-            //services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ITripScheduleMapper, TripScheduleMapper>();
             //services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            var connection = @"Server=.\SQLEXPRESS;Database=Grubber;Trusted_Connection=True;";
+
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<GrubberContext>(options => options.UseSqlServer(connection));
+
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,12 +1,14 @@
 import {TripLandMark} from './trip-landmark';
+import {EnumHelper, ObjHelper} from '../common';
 
 export class TripSchedule {
     public id: number;
     public carId: number;
     public scheduleTime: string;
-    public scheduleDay: DayOfWeek;
-    public type: TripType;
+    public scheduleDate: Date;
     public landMarks: Array<TripLandMark>;
+
+    public isNew: boolean;
 }
 
 export enum DayOfWeek {

@@ -160,12 +160,9 @@ export class GoogleMap implements AfterViewInit
                 self.locationChanged.emit({ latitude: e.latLng.lat(), longitude: e.latLng.lng()});
             });
 
-
             return;
         }
         
         this._currentLocationMarker.setPosition(pos);
     }
-
-
 }

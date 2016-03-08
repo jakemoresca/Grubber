@@ -1,4 +1,4 @@
-namespace GrubberWeb.Models
+﻿namespace GrubberApi.Models
 {
     public class Person
     {
