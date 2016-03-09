@@ -35,22 +35,68 @@ var TripService = (function () {
             return result;
         });
     };
-    TripService.prototype.getTripSchedule = function (carId) {
+    TripService.prototype.getCarTripSchedules = function (carId) {
         return this._http.get(this.apiUrl + 'tripschedule/' + carId.toString())
             .map(function (response) {
             return response.json();
         })
-            .map(function (tripSchedule) {
-            var result = null;
-            if (tripSchedule) {
-                //var tripLandMarks = new Array<TripLandMark>();
-                //tripSchedule.landMarks.forEach((tripLandMark) => {
-                //    tripLandMarks.push(tripLandMark);
-                //});
-                //tripSchedule.landMarks = tripLandMarks;
-                result = tripSchedule;
+            .map(function (tripSchedules) {
+            var result = [];
+            if (tripSchedules) {
+                tripSchedules.forEach(function (tripSchedule) {
+                    result.push(tripSchedule);
+                });
             }
-            ;
+            return result;
+        });
+    };
+    TripService.prototype.saveTripSchedules = function (tripSchedules) {
+        var body = JSON.stringify(tripSchedules);
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.post(this.apiUrl + 'tripschedule', body, {
+            headers: headers
+        })
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (tripSchedules) {
+            var result = [];
+            if (tripSchedules) {
+                tripSchedules.forEach(function (tripSchedule) {
+                    result.push(tripSchedule);
+                });
+            }
+            return result;
+        });
+    };
+    TripService.prototype.deleteTripSchedule = function (id) {
+        return this._http.delete(this.apiUrl + 'tripschedule/' + id.toString())
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (tripSchedules) {
+            var result = [];
+            if (tripSchedules) {
+                tripSchedules.forEach(function (tripSchedule) {
+                    result.push(tripSchedule);
+                });
+            }
+            return result;
+        });
+    };
+    TripService.prototype.deleteTripLandMark = function (id) {
+        return this._http.delete(this.apiUrl + 'triplandmark/' + id.toString())
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (tripLandMarks) {
+            var result = [];
+            if (tripLandMarks) {
+                tripLandMarks.forEach(function (tripLandMark) {
+                    result.push(tripLandMark);
+                });
+            }
             return result;
         });
     };

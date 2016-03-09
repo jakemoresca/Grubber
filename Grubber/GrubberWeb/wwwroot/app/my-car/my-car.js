@@ -29,39 +29,12 @@ var MyCar = (function () {
             .subscribe(function (res) { return _this.carMakes = res; });
         _carService.getCar(1)
             .subscribe(function (res) { return _this.car = res; });
-        _tripService.getTripSchedule(1)
+        _tripService.getCarTripSchedules(1)
             .subscribe(function (res) { return _this.tripSchedules = res; });
         this.initializeModels();
         this.mockCarAndTripSchedules();
         this.initializeModal();
     }
-    //public sundayTrip: Array<TripSchedule>;
-    //public mondayTrip: Array<TripSchedule>;
-    //public tuesdayTrip: Array<TripSchedule>;
-    //public wednesdayTrip: Array<TripSchedule>;
-    //public thursdayTrip: Array<TripSchedule>;
-    //public fridayTrip: Array<TripSchedule>;
-    //public saturdayTrip: Array<TripSchedule>;
-    //public combineTrips() {
-    //    this.tripSchedules = this.sundayTrip.concat(this.mondayTrip, this.tuesdayTrip, this.wednesdayTrip, this.thursdayTrip, this.fridayTrip, this.saturdayTrip);
-    //}
-    //public extractTrips() {
-    //    this.sundayTrip = this.extractTrip(DayOfWeek.Sunday);
-    //    this.mondayTrip = this.extractTrip(DayOfWeek.Monday);
-    //    this.tuesdayTrip = this.extractTrip(DayOfWeek.Tuesday);
-    //    this.wednesdayTrip = this.extractTrip(DayOfWeek.Wednesday);
-    //    this.thursdayTrip = this.extractTrip(DayOfWeek.Thursday);
-    //    this.fridayTrip = this.extractTrip(DayOfWeek.Friday);
-    //    this.saturdayTrip = this.extractTrip(DayOfWeek.Saturday);
-    //}
-    //private extractTrip(day: DayOfWeek) {
-    //    return this.tripSchedules.filter((value) => {
-    //        var match = value.scheduleDay == day;
-    //        if (match) {
-    //            return match[1];
-    //        }
-    //    });
-    //}
     MyCar.prototype.initializeModels = function () {
         this.currentLandMark = new trip_landmark_1.TripLandMark();
         this.currentLandMark.landMarkName = "Net Park";
@@ -175,10 +148,12 @@ var MyCar = (function () {
         $(this.landMarkModalId).modal('hide');
     };
     MyCar.prototype.deleteLandMark = function (tripLandMark, tripSchedule) {
-        var index = tripSchedule.landMarks.indexOf(tripLandMark);
-        if (index > -1) {
-            tripSchedule.landMarks.splice(index, 1);
-        }
+        this._tripService.deleteTripLandMark(tripLandMark.id)
+            .subscribe(function (res) { return tripSchedule.landMarks = res; });
+        //var index = tripSchedule.landMarks.indexOf(tripLandMark);
+        //if (index > -1) {
+        //    tripSchedule.landMarks.splice(index, 1);
+        //}
     };
     MyCar.prototype.newLandMark = function (tripSchedule) {
         var newLandMark = new trip_landmark_1.TripLandMark();
@@ -195,10 +170,26 @@ var MyCar = (function () {
         this.tripSchedules.push(newTripSchedule);
     };
     MyCar.prototype.removeSchedule = function (tripSchedule) {
-        var index = this.tripSchedules.indexOf(tripSchedule);
-        if (index > -1) {
-            this.tripSchedules.splice(index, 1);
-        }
+        var _this = this;
+        this._tripService.deleteTripSchedule(tripSchedule.id)
+            .subscribe(function (res) { return _this.tripSchedules = res; });
+        //var index = this.tripSchedules.indexOf(tripSchedule);
+        //if (index > -1) {
+        //    this.tripSchedules.splice(index, 1);
+        //}
+    };
+    //onWeekDayChange(newValue, tripSchedule: TripSchedule) {
+    //    tripSchedule.scheduleDay = newValue;
+    //}
+    MyCar.prototype.saveCar = function () {
+        var _this = this;
+        this._carService.saveCar(this.car)
+            .subscribe(function (res) { return _this.car = res; });
+    };
+    MyCar.prototype.saveTripSchedules = function () {
+        var _this = this;
+        this._tripService.saveTripSchedules(this.tripSchedules)
+            .subscribe(function (res) { return _this.tripSchedules = res; });
     };
     MyCar = __decorate([
         core_1.Component({

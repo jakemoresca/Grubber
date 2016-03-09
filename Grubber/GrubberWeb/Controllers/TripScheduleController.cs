@@ -35,13 +35,57 @@ namespace GrubberApi.Controllers
             return tripScheduleViewModels.ToArray();
         }
 
-        [HttpGet("api/tripschedule/{id}")]
-        public async Task<TripScheduleViewModel> Get(int id)
+        [HttpGet("api/tripschedule/{carId}")]
+        public async Task<TripScheduleViewModel[]> Get(int carId)
         {
-            var tripSchedule = await _context.TripSchedules.Include(ts => ts.TripLandMarks).FirstOrDefaultAsync(ts => ts.CarId == id);
-            var tripScheduleViewModel = _tripScheduleMapper.ToViewModel(tripSchedule);
+            var tripScheduleViewModels = new List<TripScheduleViewModel>();
+            var tripSchedules = await _context.TripSchedules.Include(ts => ts.TripLandMarks).Where(ts => ts.CarId == carId).ToListAsync();
+            tripSchedules.ForEach(ts =>
+            {
+                var tsViewModel = _tripScheduleMapper.ToViewModel(ts);
+                tripScheduleViewModels.Add(tsViewModel);
+            });
 
-            return tripScheduleViewModel;
+            return tripScheduleViewModels.ToArray();
+        }
+
+        [HttpPost("api/tripschedule/")]
+        public async Task<TripScheduleViewModel[]> Post([FromBody] TripScheduleViewModel[] tripSchedules)
+        {
+            for (int ts = 0; ts < tripSchedules.Length; ts++)
+            {
+                var tripSchedule = _tripScheduleMapper.ToModel(tripSchedules[ts]);
+
+                if (tripSchedule.Id > 0)
+                    _context.Update(tripSchedule);
+                else
+                    _context.TripSchedules.Add(tripSchedule);
+
+                await _context.SaveChangesAsync();
+
+                tripSchedules[ts] = _tripScheduleMapper.ToViewModel(tripSchedule);
+            }
+
+            return tripSchedules;
+        }
+
+        [HttpDelete("api/tripschedule/{id}")]
+        public async Task<TripScheduleViewModel[]> Delete(int id)
+        {
+            var tripSchedule = await _context.TripSchedules.FirstOrDefaultAsync(ts => ts.Id == id);
+            var carId = tripSchedule.CarId;
+            _context.TripSchedules.Remove(tripSchedule);
+            await _context.SaveChangesAsync();
+
+            var tripScheduleViewModels = new List<TripScheduleViewModel>();
+            var tripSchedules = await _context.TripSchedules.Include(ts => ts.TripLandMarks).Where(ts => ts.CarId == carId).ToListAsync();
+            tripSchedules.ForEach(ts =>
+            {
+                var tsViewModel = _tripScheduleMapper.ToViewModel(ts);
+                tripScheduleViewModels.Add(tsViewModel);
+            });
+
+            return tripScheduleViewModels.ToArray();
         }
     }
 }

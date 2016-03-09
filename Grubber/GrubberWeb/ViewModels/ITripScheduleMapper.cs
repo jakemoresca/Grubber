@@ -7,5 +7,8 @@ namespace GrubberWeb.Mappers
     {
         TripSchedule ToModel(TripScheduleViewModel viewModel);
         TripScheduleViewModel ToViewModel(TripSchedule model);
+
+        TripLandMark ToModel(TripLandMarkViewModel viewModel);
+        TripLandMarkViewModel ToViewModel(TripLandMark model);
     }
 }

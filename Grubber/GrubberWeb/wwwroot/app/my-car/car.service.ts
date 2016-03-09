@@ -1,4 +1,4 @@
-import {Http} from 'angular2/http';
+import {Http, Headers} from 'angular2/http';
 import {Injectable} from 'angular2/core';
 import {Car} from '../core/cars/car';
 import {CarMake} from '../core/cars/car-make';
@@ -34,6 +34,27 @@ export class CarService {
 
     getCar(id: number) {
         return this._http.get(this.apiUrl + 'car/' + id.toString())
+            .map((response) => {
+                return response.json();
+            })
+            .map((car: Car) => {
+                let result: any = null;
+
+                if (car) {
+                    result = car;
+                };
+                return result;
+            });
+    }
+
+    saveCar(car: Car) {
+        var body = JSON.stringify(car);
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        return this._http.post(this.apiUrl + 'car', body, {
+                headers: headers
+            })
             .map((response) => {
                 return response.json();
             })

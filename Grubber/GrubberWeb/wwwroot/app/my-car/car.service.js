@@ -49,6 +49,25 @@ var CarService = (function () {
             return result;
         });
     };
+    CarService.prototype.saveCar = function (car) {
+        var body = JSON.stringify(car);
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.post(this.apiUrl + 'car', body, {
+            headers: headers
+        })
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (car) {
+            var result = null;
+            if (car) {
+                result = car;
+            }
+            ;
+            return result;
+        });
+    };
     CarService.prototype.getCarMakes = function () {
         //return an observable
         return this._http.get(this.apiUrl + 'carmake')

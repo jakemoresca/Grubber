@@ -1,4 +1,4 @@
-import {Http} from 'angular2/http';
+import {Http, Headers} from 'angular2/http';
 import {Injectable} from 'angular2/core';
 import {TripSchedule} from '../core/trips/trip-schedule';
 import {TripLandMark} from '../core/trips/trip-landmark';
@@ -32,23 +32,77 @@ export class TripService {
             });
     }
 
-    getTripSchedule(carId: number) {
+    getCarTripSchedules(carId: number) {
         return this._http.get(this.apiUrl + 'tripschedule/' + carId.toString())
             .map((response) => {
                 return response.json();
             })
-            .map((tripSchedule: TripSchedule) => {
-                let result: any = null;
+            .map((tripSchedules: Array<any>) => {
+                let result: Array<TripSchedule> = [];
 
-                if (tripSchedule) {
-                    //var tripLandMarks = new Array<TripLandMark>();
-                    //tripSchedule.landMarks.forEach((tripLandMark) => {
-                    //    tripLandMarks.push(tripLandMark);
-                    //});
+                if (tripSchedules) {
+                    tripSchedules.forEach((tripSchedule) => {
+                        result.push(tripSchedule)
+                    });
+                }
+                return result;
+            });
+    }
 
-                    //tripSchedule.landMarks = tripLandMarks;
-                    result = tripSchedule;
-                };
+    saveTripSchedules(tripSchedules: Array<TripSchedule>) {
+        var body = JSON.stringify(tripSchedules);
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        return this._http.post(this.apiUrl + 'tripschedule', body,
+            {
+                headers: headers
+            })
+            .map((response) => {
+                return response.json();
+            })
+            .map((tripSchedules: Array<any>) => {
+                let result: Array<TripSchedule> = [];
+
+                if (tripSchedules) {
+                    tripSchedules.forEach((tripSchedule) => {
+                        result.push(tripSchedule)
+                    });
+                }
+                return result;
+            });
+    }
+
+    deleteTripSchedule(id: number) {
+        return this._http.delete(this.apiUrl + 'tripschedule/' + id.toString())
+            .map((response) => {
+                return response.json();
+            })
+            .map((tripSchedules: Array<any>) => {
+                let result: Array<TripSchedule> = [];
+
+                if (tripSchedules) {
+                    tripSchedules.forEach((tripSchedule) => {
+                        result.push(tripSchedule)
+                    });
+                }
+                return result;
+            });
+    }
+
+    deleteTripLandMark(id: number) {
+        return this._http.delete(this.apiUrl + 'triplandmark/' + id.toString())
+            .map((response) => {
+                return response.json();
+            })
+            .map((tripLandMarks: Array<any>) => {
+                let result: Array<TripLandMark> = [];
+
+                if (tripLandMarks) {
+                    tripLandMarks.forEach((tripLandMark) => {
+                        result.push(tripLandMark)
+                    });
+                }
                 return result;
             });
     }

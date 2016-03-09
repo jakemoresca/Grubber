@@ -30,7 +30,7 @@ namespace GrubberWeb.Mappers
             };
         }
 
-        private TripLandMark ToModel(TripLandMarkViewModel viewModel)
+        public TripLandMark ToModel(TripLandMarkViewModel viewModel)
         {
             return new TripLandMark
             {
@@ -41,7 +41,7 @@ namespace GrubberWeb.Mappers
             };
         }
 
-        private TripLandMarkViewModel ToViewModel(TripLandMark model)
+        public TripLandMarkViewModel ToViewModel(TripLandMark model)
         {
             return new TripLandMarkViewModel
             {
