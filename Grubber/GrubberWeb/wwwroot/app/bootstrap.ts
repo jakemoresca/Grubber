@@ -7,13 +7,15 @@ import { App } from './app';
 import 'rxjs/Rx';
 import { PeopleService } from './people/people.service';
 import { CarService } from './my-car/car.service';
-import { TripService } from './my-car/trip.service';
+//import { TripService } from './my-car/trip.service';
+import { TripService } from './my-schedule/trip.service';
 //import {ANGULAR2_GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
 
 
 bootstrap(App, [
     router.ROUTER_PROVIDERS,
     provide(router.APP_BASE_HREF, { useValue: '/' }),
+    //provide(router.Location, { useClass: router.HashLocationStrategy }),
     HTTP_BINDINGS,
     FormBuilder,
     PeopleService,
