@@ -32,8 +32,10 @@ export class MySchedule {
     landMarkModalId: any;
 
     currentTripSchedule: TripSchedule;
+    currentTripScheduleClone: TripSchedule;
     currentLandMark: TripLandMark;
     currentLandMarkClone: TripLandMark;
+    showDetailView: boolean = false;
 
     constructor(private _router: Router, private _carService: CarService, private _tripService: TripService) {
         _carService.getCarMakes()
@@ -56,6 +58,9 @@ export class MySchedule {
         this.currentLandMark.latitude = 14.550157;
         this.currentLandMark.longitude = 121.046736;
         this.currentLandMarkClone = ObjHelper.copyObject<TripLandMark>(this.currentLandMark);
+
+        this.currentTripSchedule = new TripSchedule();
+        this.currentTripScheduleClone = ObjHelper.copyObject<TripSchedule>(this.currentTripSchedule);
 
         this.car = new Car();
         this.carMakes = new Array<CarMake>();
@@ -94,6 +99,29 @@ export class MySchedule {
         });
     }
 
+    updateLocation(newValue) {
+        this.currentLandMarkClone.latitude = newValue.latitude;
+        this.currentLandMarkClone.longitude = newValue.longitude;
+        this.currentLandMarkClone.landMarkName = newValue.landMarkName;
+        //var latlng = new google.maps.LatLng(newValue.latitude, newValue.longitude);
+        //var geocoder = new google.maps.Geocoder();
+        //var self = this;
+
+        //geocoder.geocode({ 'location': latlng }, function (results, status) {
+        //    if (status === google.maps.GeocoderStatus.OK) {
+        //        if (results[1]) {
+        //            self.currentLandMarkClone.latitude = newValue.latitude;
+        //            self.currentLandMarkClone.longitude = newValue.longitude;
+        //            self.currentLandMarkClone.landMarkName = results[1].formatted_address;
+        //        } else {
+        //            window.alert('No results found');
+        //        }
+        //    } else {
+        //        window.alert('Geocoder failed due to: ' + status);
+        //    }
+        //});
+    }
+
     reverseGeocodeAddress(newValue) {
         var latlng = new google.maps.LatLng(newValue.latitude, newValue.longitude);
         var geocoder = new google.maps.Geocoder();
@@ -102,6 +130,8 @@ export class MySchedule {
         geocoder.geocode({ 'location': latlng }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
+                    self.currentLandMarkClone.latitude = newValue.latitude;
+                    self.currentLandMarkClone.longitude = newValue.longitude;
                     self.currentLandMarkClone.landMarkName = results[1].formatted_address;
                 } else {
                     window.alert('No results found');
@@ -112,14 +142,13 @@ export class MySchedule {
         });
     }
 
-    showModal(tripLandMark: TripLandMark, tripSchedule: TripSchedule) {
+    showModal(tripLandMark: TripLandMark) {
         $(this.landMarkModalId).modal('show');
         $(this.landMarkModalId).on("shown.bs.modal", function () {
             google.maps.event.trigger(document.getElementById("mapLandMark"), "resize");
         });
         
         this.currentLandMark = tripLandMark;
-        this.currentTripSchedule = tripSchedule;
         this.currentLandMarkClone = ObjHelper.copyObject<TripLandMark>(this.currentLandMark);
     }
 
@@ -129,7 +158,7 @@ export class MySchedule {
         this.currentLandMark.longitude = this.currentLandMarkClone.longitude;
 
         if (this.currentLandMarkClone.isNew == true) {
-            this.currentTripSchedule.landMarks.push(this.currentLandMark);
+            this.currentTripScheduleClone.landMarks.push(this.currentLandMark);
         }
 
         $(this.landMarkModalId).modal('hide');
@@ -155,7 +184,7 @@ export class MySchedule {
         newLandMark.longitude = 121.046736;
         newLandMark.isNew = true;
 
-        this.showModal(newLandMark, tripSchedule);
+        this.showModal(newLandMark);
     }
 
     newTripSchedule() {
@@ -180,8 +209,21 @@ export class MySchedule {
         }
     }
 
-    saveTripSchedules() {
-        this._tripService.saveTripSchedules(this.tripSchedules)
+    saveTripSchedule(tripSchedule: TripSchedule) {
+        this.currentTripSchedule = tripSchedule;
+        this._tripService.saveTripSchedules([this.currentTripSchedule])
             .subscribe(res => this.tripSchedules = res);
+
+        this.showDetailView = false;
+    }
+
+    viewTripSchedule(tripSchedule: TripSchedule) {
+        this.currentTripSchedule = tripSchedule;
+        this.currentTripScheduleClone = ObjHelper.copyObject<TripSchedule>(this.currentTripSchedule);
+        this.showDetailView = true;
+    }
+
+    closeViewTripSchedule() {
+        this.showDetailView = false;
     }
 }

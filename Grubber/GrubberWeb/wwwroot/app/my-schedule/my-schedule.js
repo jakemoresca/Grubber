@@ -25,6 +25,7 @@ var MySchedule = (function () {
         this._carService = _carService;
         this._tripService = _tripService;
         this.dayOfWeeks = common_1.EnumHelper.getNamesAndValues(trip_schedule_1.DayOfWeek);
+        this.showDetailView = false;
         _carService.getCarMakes()
             .subscribe(function (res) { return _this.carMakes = res; });
         _carService.getCar(1)
@@ -41,6 +42,8 @@ var MySchedule = (function () {
         this.currentLandMark.latitude = 14.550157;
         this.currentLandMark.longitude = 121.046736;
         this.currentLandMarkClone = common_1.ObjHelper.copyObject(this.currentLandMark);
+        this.currentTripSchedule = new trip_schedule_1.TripSchedule();
+        this.currentTripScheduleClone = common_1.ObjHelper.copyObject(this.currentTripSchedule);
         this.car = new car_1.Car();
         this.carMakes = new Array();
         this.tripSchedules = new Array();
@@ -73,6 +76,27 @@ var MySchedule = (function () {
             }
         });
     };
+    MySchedule.prototype.updateLocation = function (newValue) {
+        this.currentLandMarkClone.latitude = newValue.latitude;
+        this.currentLandMarkClone.longitude = newValue.longitude;
+        this.currentLandMarkClone.landMarkName = newValue.landMarkName;
+        //var latlng = new google.maps.LatLng(newValue.latitude, newValue.longitude);
+        //var geocoder = new google.maps.Geocoder();
+        //var self = this;
+        //geocoder.geocode({ 'location': latlng }, function (results, status) {
+        //    if (status === google.maps.GeocoderStatus.OK) {
+        //        if (results[1]) {
+        //            self.currentLandMarkClone.latitude = newValue.latitude;
+        //            self.currentLandMarkClone.longitude = newValue.longitude;
+        //            self.currentLandMarkClone.landMarkName = results[1].formatted_address;
+        //        } else {
+        //            window.alert('No results found');
+        //        }
+        //    } else {
+        //        window.alert('Geocoder failed due to: ' + status);
+        //    }
+        //});
+    };
     MySchedule.prototype.reverseGeocodeAddress = function (newValue) {
         var latlng = new google.maps.LatLng(newValue.latitude, newValue.longitude);
         var geocoder = new google.maps.Geocoder();
@@ -80,6 +104,8 @@ var MySchedule = (function () {
         geocoder.geocode({ 'location': latlng }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
+                    self.currentLandMarkClone.latitude = newValue.latitude;
+                    self.currentLandMarkClone.longitude = newValue.longitude;
                     self.currentLandMarkClone.landMarkName = results[1].formatted_address;
                 }
                 else {
@@ -91,13 +117,12 @@ var MySchedule = (function () {
             }
         });
     };
-    MySchedule.prototype.showModal = function (tripLandMark, tripSchedule) {
+    MySchedule.prototype.showModal = function (tripLandMark) {
         $(this.landMarkModalId).modal('show');
         $(this.landMarkModalId).on("shown.bs.modal", function () {
             google.maps.event.trigger(document.getElementById("mapLandMark"), "resize");
         });
         this.currentLandMark = tripLandMark;
-        this.currentTripSchedule = tripSchedule;
         this.currentLandMarkClone = common_1.ObjHelper.copyObject(this.currentLandMark);
     };
     MySchedule.prototype.saveLandMark = function () {
@@ -105,7 +130,7 @@ var MySchedule = (function () {
         this.currentLandMark.latitude = this.currentLandMarkClone.latitude;
         this.currentLandMark.longitude = this.currentLandMarkClone.longitude;
         if (this.currentLandMarkClone.isNew == true) {
-            this.currentTripSchedule.landMarks.push(this.currentLandMark);
+            this.currentTripScheduleClone.landMarks.push(this.currentLandMark);
         }
         $(this.landMarkModalId).modal('hide');
     };
@@ -127,7 +152,7 @@ var MySchedule = (function () {
         newLandMark.latitude = 14.550157;
         newLandMark.longitude = 121.046736;
         newLandMark.isNew = true;
-        this.showModal(newLandMark, tripSchedule);
+        this.showModal(newLandMark);
     };
     MySchedule.prototype.newTripSchedule = function () {
         var newTripSchedule = new trip_schedule_1.TripSchedule();
@@ -149,10 +174,20 @@ var MySchedule = (function () {
                 .subscribe(function (res) { return _this.tripSchedules = res; });
         }
     };
-    MySchedule.prototype.saveTripSchedules = function () {
+    MySchedule.prototype.saveTripSchedule = function (tripSchedule) {
         var _this = this;
-        this._tripService.saveTripSchedules(this.tripSchedules)
+        this.currentTripSchedule = tripSchedule;
+        this._tripService.saveTripSchedules([this.currentTripSchedule])
             .subscribe(function (res) { return _this.tripSchedules = res; });
+        this.showDetailView = false;
+    };
+    MySchedule.prototype.viewTripSchedule = function (tripSchedule) {
+        this.currentTripSchedule = tripSchedule;
+        this.currentTripScheduleClone = common_1.ObjHelper.copyObject(this.currentTripSchedule);
+        this.showDetailView = true;
+    };
+    MySchedule.prototype.closeViewTripSchedule = function () {
+        this.showDetailView = false;
     };
     MySchedule = __decorate([
         core_1.Component({

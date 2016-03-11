@@ -66,6 +66,8 @@ namespace GrubberApi.Controllers
                 tripSchedules[ts] = _tripScheduleMapper.ToViewModel(tripSchedule);
             }
 
+            tripSchedules = await Get(tripSchedules[0].CarId);
+
             return tripSchedules;
         }
 
