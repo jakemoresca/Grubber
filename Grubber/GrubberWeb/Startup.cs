@@ -12,6 +12,10 @@ using Microsoft.AspNet.Mvc.Formatters;
 using GrubberApi.Models;
 using Microsoft.Data.Entity;
 using GrubberWeb.Mappers;
+using Microsoft.AspNet.Diagnostics;
+using GrubberWeb.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using GrubberWeb.Database;
 
 namespace GrubberWeb
 {
@@ -41,13 +45,19 @@ namespace GrubberWeb
             });
             // Add application services.
             services.AddTransient<ITripScheduleMapper, TripScheduleMapper>();
+            services.AddTransient<DBInitializer>();
             //services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            var connection = @"Server=.\tdcidev;Database=Grubber;Trusted_Connection=True;";
+            //var connection = @"Server=.\tdcidev;Database=Grubber;Trusted_Connection=True;";
+            var connection = @"Server=.\SQLEXPRESS;Database=Grubber;Trusted_Connection=True;";
 
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<GrubberContext>(options => options.UseSqlServer(connection));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<GrubberContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc().AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -55,8 +65,10 @@ namespace GrubberWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, DBInitializer dbInitializer)
         {
+            app.UseStaticFiles();
+            app.UseIdentity();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -74,6 +86,8 @@ namespace GrubberWeb
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            await dbInitializer.InitializeDataAsync();
         }
 
         // Entry point for the application.

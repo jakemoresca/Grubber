@@ -1,0 +1,15 @@
+﻿{
+  "Data": {
+    "Database": {
+      "Connection": "Server=(local)\\SQLEXPRESS;Database=Grubber;Trusted_Connection=True;"
+    },
+    "DefaultDriverUser": {
+      "Username": "driver",
+      "Password": "driver"
+    },
+    "DefaultPassengerUser": {
+      "Username": "passenger1",
+      "Password": "passenger1"
+    }
+  }
+}

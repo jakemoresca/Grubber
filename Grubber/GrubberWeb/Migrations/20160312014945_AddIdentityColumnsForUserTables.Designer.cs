@@ -8,9 +8,10 @@ using GrubberApi.Models;
 namespace GrubberWeb.Migrations
 {
     [DbContext(typeof(GrubberContext))]
-    partial class GrubberContextModelSnapshot : ModelSnapshot
+    [Migration("20160312014945_AddIdentityColumnsForUserTables")]
+    partial class AddIdentityColumnsForUserTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -133,44 +134,6 @@ namespace GrubberWeb.Migrations
                     b.HasAnnotation("Relational:TableName", "User");
                 });
 
-            modelBuilder.Entity("GrubberWeb.Models.BatchTripReservation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AcceptedTripReservationId");
-
-                    b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("GrubberWeb.Models.TripReservation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BatchTripReservationId");
-
-                    b.Property<int>("Status");
-
-                    b.Property<int>("TripScheduleId");
-
-                    b.Property<string>("TripStart");
-
-                    b.Property<int>("TripStartLat");
-
-                    b.Property<int>("TripStartLng");
-
-                    b.Property<string>("TripTo");
-
-                    b.Property<int>("TripToLat");
-
-                    b.Property<int>("TripToLng");
-
-                    b.HasKey("Id");
-                });
-
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
                 {
                     b.Property<string>("Id");
@@ -279,24 +242,6 @@ namespace GrubberWeb.Migrations
                     b.HasOne("GrubberApi.Models.Car")
                         .WithMany()
                         .HasForeignKey("CarId");
-                });
-
-            modelBuilder.Entity("GrubberWeb.Models.BatchTripReservation", b =>
-                {
-                    b.HasOne("GrubberWeb.Models.TripReservation")
-                        .WithMany()
-                        .HasForeignKey("AcceptedTripReservationId");
-                });
-
-            modelBuilder.Entity("GrubberWeb.Models.TripReservation", b =>
-                {
-                    b.HasOne("GrubberWeb.Models.BatchTripReservation")
-                        .WithMany()
-                        .HasForeignKey("BatchTripReservationId");
-
-                    b.HasOne("GrubberApi.Models.TripSchedule")
-                        .WithMany()
-                        .HasForeignKey("TripScheduleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>

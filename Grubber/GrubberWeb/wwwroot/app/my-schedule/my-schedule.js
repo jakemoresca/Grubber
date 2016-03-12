@@ -142,7 +142,7 @@ var MySchedule = (function () {
             }
         }
         else {
-            this._tripService.deleteTripLandMark(tripLandMark.id)
+            this._tripService.deleteTripLandMark(tripLandMark.id, tripSchedule.id)
                 .subscribe(function (res) { return tripSchedule.landMarks = res; });
         }
     };

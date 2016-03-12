@@ -90,8 +90,8 @@ export class TripService {
             });
     }
 
-    deleteTripLandMark(id: number) {
-        return this._http.delete(this.apiUrl + 'triplandmark/' + id.toString())
+    deleteTripLandMark(id: number, scheduleId: number) {
+        return this._http.delete(this.apiUrl + 'triplandmark/' + id.toString() + "/" + scheduleId.toString())
             .map((response) => {
                 return response.json();
             })

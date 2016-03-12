@@ -1,0 +1,7 @@
+﻿{
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=(local)\\SQLEXPRESS;Database=Grubber;Trusted_Connection=True;"
+    }
+  }
+}

@@ -1,9 +1,16 @@
-﻿using Microsoft.Data.Entity;
+﻿using GrubberWeb.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Data.Entity;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.OptionsModel;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GrubberApi.Models
 {
-    public class GrubberContext : DbContext
+    public class GrubberContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<CarMake> CarMakes { get; set; }
         public DbSet<Car> Cars { get; set; }
@@ -12,10 +19,35 @@ namespace GrubberApi.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            SetUserDefinition(modelBuilder);
             SetCarDefinition(modelBuilder);
             SetCarMakeDefinition(modelBuilder);
             SetTripLandMarkDefinition(modelBuilder);
             SetTripScheduleDefinition(modelBuilder);
+            SetReservationDefinition(modelBuilder);
+        }
+
+        private void SetUserDefinition(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .Property(c => c.UserId)
+                .IsRequired()
+                .UseSqlServerIdentityColumn();
+
+            modelBuilder.Entity<ApplicationUser>()
+                .Property(c => c.CarId)
+                .IsRequired(false);
+
+            // Configure Asp Net Identity Tables
+            modelBuilder.Entity<ApplicationUser>().ToTable("User");
+            modelBuilder.Entity<ApplicationUser>().Property(u => u.PasswordHash).HasMaxLength(500);
+            modelBuilder.Entity<ApplicationUser>().Property(u => u.PhoneNumber).HasMaxLength(50);
+
+            modelBuilder.Entity<IdentityRole>().ToTable("Role");
+            modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRole");
+            modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
         }
 
         private void SetCarDefinition(ModelBuilder modelBuilder)
@@ -58,10 +90,6 @@ namespace GrubberApi.Models
                 .UseSqlServerIdentityColumn();
 
             modelBuilder.Entity<TripLandMark>()
-                .Property(c => c.TripScheduleId)
-                .IsRequired();
-
-            modelBuilder.Entity<TripLandMark>()
                 .Property(c => c.LandMarkName)
                 .IsRequired();
 
@@ -77,6 +105,19 @@ namespace GrubberApi.Models
         private void SetCarMakeDefinition(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CarMake>()
+                .Property(c => c.Id)
+                .IsRequired()
+                .UseSqlServerIdentityColumn();
+        }
+
+        private void SetReservationDefinition(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TripReservation>()
+                .Property(c => c.Id)
+                .IsRequired()
+                .UseSqlServerIdentityColumn();
+
+            modelBuilder.Entity<BatchTripReservation>()
                 .Property(c => c.Id)
                 .IsRequired()
                 .UseSqlServerIdentityColumn();

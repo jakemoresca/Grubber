@@ -3,47 +3,27 @@ import * as ng from 'angular2/common';
 import {Router} from 'angular2/router';
 import {Routes} from '../routes.config';
 import {Http, Headers} from 'angular2/http';
+import {AccountService} from './account.service';
 
 @Component({
-    selector: 'login'
-})
-@View({
-    // Template for this component. You can see it below
-    templateUrl: 'login/login.html'
+    selector: 'login',
+    moduleId: module.id,
+    templateUrl: 'login.html'
 })
 export class Login {
-    // We inject the router via DI
-    constructor(private _router: Router, private _http: Http)
+    userName: string;
+    password: string;    
+
+    constructor(private _router: Router, private _accountService: AccountService)
     {
     }
 
-    login(event, username, password) {
-        // This will be called when the user clicks on the Login button
-        event.preventDefault();
-
-        this._http.
-        // We call our API to log the user in. The username and password are entered by the user
-        fetch('http://localhost:3001/sessions/create', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username, password
-            })
-        })
-            .then(status)
-            .then(json)
-            .then((response) => {
-                // Once we get the JWT in the response, we save it into localStorage
-                localStorage.setItem('jwt', response.id_token);
-                // and then we redirect the user to the home
-                this._router.parent.navigateByUrl('/home');
-            })
-            .catch((error) => {
-                alert(error.message);
-                console.log(error.message);
+    login() {
+        this._accountService.login(this.userName, this.password)
+            .subscribe(res =>
+            {
+                if (res) this._router.parent.navigateByUrl('/home');
+                alert("Invalid Username/Password combination");
             });
     }
 }

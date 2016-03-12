@@ -7,6 +7,7 @@ import { App } from './app';
 import 'rxjs/Rx';
 import { PeopleService } from './people/people.service';
 import { CarService } from './my-car/car.service';
+import { AccountService } from './login/account.service';
 //import { TripService } from './my-car/trip.service';
 import { TripService } from './my-schedule/trip.service';
 //import {ANGULAR2_GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
@@ -20,5 +21,6 @@ bootstrap(App, [
     FormBuilder,
     PeopleService,
     CarService,
-    TripService
+    TripService,
+    AccountService
 ]);

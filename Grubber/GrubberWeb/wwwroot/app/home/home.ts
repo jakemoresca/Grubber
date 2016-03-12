@@ -1,74 +1,31 @@
 import {Component} from 'angular2/core';
 import * as ng from 'angular2/common';
-import {Router} from 'angular2/router';
+import {Router, Location} from 'angular2/router';
 import {Routes} from '../routes.config';
-import {GoogleMap} from '../core/mapping/google-map';
+import {User} from '../core/user';
+import { AccountService } from '../login/account.service';
 
 @Component({
     selector: 'home',
     moduleId: module.id,
-    templateUrl: 'home.html',
-    directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, GoogleMap],
-    styles: ['.google-map-container { height: 330px; }']
+    templateUrl: 'home.html'
 })
 export class Home{
-
+    user: User;
     lat: number = 14.124;
     lng: number = 121.41512;
     locationWatchId: number;
     useNative: boolean = false;
 
-    constructor(private _router: Router) {
-        //this.getCurrentPosition();
-        //this.watchCurrentPosition();
+    constructor(private _router: Router, private _location: Location, private _accountService: AccountService) {
+        _accountService.getCurrentUser()
+            .subscribe(res => {
+                if (res.userName == null) {
+                    _router.navigateByUrl("/login");
+                }
+                else {
+                    this.user = res;
+                }
+            });
     }
-
-    watchCurrentPosition() {
-        var self = this;
-
-        function success(pos) {
-            var crd = pos.coords;
-            self.lat = crd.latitude;
-            self.lng = crd.longitude;
-        }
-
-        function error(err) {
-            alert('ERROR(' + err.code + '): ' + err.message);
-        }
-
-        var options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        };
-
-        this.locationWatchId = navigator.geolocation.watchPosition(success, error, options);
-    }
-
-    getCurrentPosition() {
-
-        var self = this;
-
-        var onSuccess = function (position) {
-            //alert('Latitude: ' + position.coords.latitude + '\n' +
-            //    'Longitude: ' + position.coords.longitude + '\n' +
-            //    'Altitude: ' + position.coords.altitude + '\n' +
-            //    'Accuracy: ' + position.coords.accuracy + '\n' +
-            //    'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-            //    'Heading: ' + position.coords.heading + '\n' +
-            //    'Speed: ' + position.coords.speed + '\n' +
-            //    'Timestamp: ' + position.timestamp + '\n');
-                        
-            self.lat = position.coords.latitude;
-            self.lng = position.coords.longitude;
-        };
-
-        function onError(error) {
-            alert('code: ' + error.code + '\n' +
-                'message: ' + error.message + '\n');
-        }
-
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    }
-
 }

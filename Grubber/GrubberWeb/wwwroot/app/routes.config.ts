@@ -1,4 +1,5 @@
 import { Home } from './home/Home';
+import { Login } from './login/Login';
 import { People } from './people/People';
 import { CarPools } from './car-pools/Car-Pools';
 import { MyCar } from './my-car/My-Car';
@@ -9,6 +10,7 @@ import { Route, Router } from 'angular2/router';
 export var Routes =
 {
     home: new Route({ path: '/', name: 'Home', component: Home }),
+    login: new Route({ path: '/login', name: 'Login', component: Login }),
     carPools: new Route({ path: '/carPools', name: 'CarPools', component: CarPools }),
     myCar: new Route({ path: '/myCar', name: 'MyCar', component: MyCar }),
     mySchedule: new Route({ path: '/mySchedule', name: 'MySchedule', component: MySchedule }),

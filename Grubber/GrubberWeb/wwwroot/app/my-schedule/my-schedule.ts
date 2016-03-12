@@ -172,7 +172,7 @@ export class MySchedule {
             }
         }
         else {
-            this._tripService.deleteTripLandMark(tripLandMark.id)
+            this._tripService.deleteTripLandMark(tripLandMark.id, tripSchedule.id)
                 .subscribe(res => tripSchedule.landMarks = res);
         }
     }

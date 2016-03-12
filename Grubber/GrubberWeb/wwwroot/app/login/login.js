@@ -9,35 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var router_1 = require('angular2/router');
-var account_service_1 = require('../login/account.service');
-var Home = (function () {
-    function Home(_router, _location, _accountService) {
-        var _this = this;
+var account_service_1 = require('./account.service');
+var Login = (function () {
+    function Login(_router, _accountService) {
         this._router = _router;
-        this._location = _location;
         this._accountService = _accountService;
-        this.lat = 14.124;
-        this.lng = 121.41512;
-        this.useNative = false;
-        _accountService.getCurrentUser()
-            .subscribe(function (res) {
-            if (res.userName == null) {
-                _router.navigateByUrl("/login");
-            }
-            else {
-                _this.user = res;
-            }
-        });
     }
-    Home = __decorate([
+    Login.prototype.login = function () {
+        var _this = this;
+        this._accountService.login(this.userName, this.password)
+            .subscribe(function (res) {
+            if (res)
+                _this._router.parent.navigateByUrl('/home');
+            alert("Invalid Username/Password combination");
+        });
+    };
+    Login = __decorate([
         core_1.Component({
-            selector: 'home',
+            selector: 'login',
             moduleId: module.id,
-            templateUrl: 'home.html'
+            templateUrl: 'login.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, router_1.Location, account_service_1.AccountService])
-    ], Home);
-    return Home;
+        __metadata('design:paramtypes', [router_1.Router, account_service_1.AccountService])
+    ], Login);
+    return Login;
 })();
-exports.Home = Home;
-//# sourceMappingURL=Home.js.map
+exports.Login = Login;
+//# sourceMappingURL=Login.js.map

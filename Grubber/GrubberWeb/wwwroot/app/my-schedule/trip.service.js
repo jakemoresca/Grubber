@@ -85,8 +85,8 @@ var TripService = (function () {
             return result;
         });
     };
-    TripService.prototype.deleteTripLandMark = function (id) {
-        return this._http.delete(this.apiUrl + 'triplandmark/' + id.toString())
+    TripService.prototype.deleteTripLandMark = function (id, scheduleId) {
+        return this._http.delete(this.apiUrl + 'triplandmark/' + id.toString() + "/" + scheduleId.toString())
             .map(function (response) {
             return response.json();
         })

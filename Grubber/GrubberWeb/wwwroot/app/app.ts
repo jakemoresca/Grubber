@@ -1,6 +1,7 @@
 import * as ng from 'angular2/core';
 import * as router from 'angular2/router';
 import { Routes, APP_ROUTES } from './routes.config';
+import { AccountService } from './login/account.service';
 
 @ng.Component({
     selector: 'app',
@@ -15,8 +16,13 @@ import { Routes, APP_ROUTES } from './routes.config';
 export class App {
     public routes = Routes;
 
-    constructor(router: router.Router) {
-        router.navigateByUrl("/");
+    constructor(private _router: router.Router, private _accountService: AccountService) {
+        _router.navigateByUrl("/");
+    }
+
+    logout() {
+        this._accountService.logout()
+            .subscribe(res => this._router.navigateByUrl("/login"));
     }
 }
 
