@@ -3,9 +3,6 @@ import {Injectable} from 'angular2/core';
 import {TripSchedule} from '../core/trips/trip-schedule';
 import {TripLandMark} from '../core/trips/trip-landmark';
 
-/**
- * car service
- */
 @Injectable()
 export class TripService {
     tripSchedules: TripSchedule[] = [];

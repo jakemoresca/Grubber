@@ -18,15 +18,15 @@ var AccountService = (function () {
         this.isAuthenticated = false;
         this.apiUrl = "/api/account/";
     }
-    AccountService.prototype.login = function (username, password) {
+    AccountService.prototype.login = function (user) {
         var _this = this;
-        var body = "{'userName'='" + username + "','password'='" + password + "'}";
+        var body = JSON.stringify(user);
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         return this._http.post(this.apiUrl + 'login', body, {
             headers: headers
         }).map(function (response) {
-            if (response.ok) {
+            if (response.status == 200) {
                 _this.isAuthenticated = true;
                 return true;
             }
@@ -36,8 +36,9 @@ var AccountService = (function () {
     };
     AccountService.prototype.logout = function () {
         var _this = this;
-        return this._http.post(this.apiUrl + 'logout', "").map(function (response) {
-            if (response.ok) {
+        return this._http.post(this.apiUrl + 'logout', "")
+            .map(function (response) {
+            if (response.status == 200) {
                 _this.isAuthenticated = false;
                 return true;
             }

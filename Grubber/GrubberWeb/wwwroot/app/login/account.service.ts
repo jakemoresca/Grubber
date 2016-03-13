@@ -2,6 +2,7 @@ import {Http, Headers} from 'angular2/http';
 import {Injectable} from 'angular2/core';
 import {Car} from '../core/cars/car';
 import {CarMake} from '../core/cars/car-make';
+import {User} from '../core/user';
 
 /**
  * car service
@@ -13,15 +14,15 @@ export class AccountService {
 
     constructor(private _http: Http) { }
 
-    login(username: string, password: string) {
-        var body = "{'userName'='" + username + "','password'='" + password + "'}";
+    login(user: User) {
+        var body = JSON.stringify(user);
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
         return this._http.post(this.apiUrl + 'login', body, {
                 headers: headers
             }).map((response) => {
-                if (response.ok) {
+                if (response.status == 200) {
                     this.isAuthenticated = true;
                     return true;
                 }
@@ -31,10 +32,11 @@ export class AccountService {
     }
 
     logout() {
-        return this._http.post(this.apiUrl + 'logout', "").map((response) => {
-            if (response.ok) {
-                this.isAuthenticated = false;
-                return true;
+        return this._http.post(this.apiUrl + 'logout', "")
+            .map((response) => {
+                if (response.status == 200) {
+                    this.isAuthenticated = false;
+                    return true;
             }
             return false;
         });

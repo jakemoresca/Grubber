@@ -10,14 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var router_1 = require('angular2/router');
 var account_service_1 = require('./account.service');
+var user_1 = require('../core/user');
 var Login = (function () {
     function Login(_router, _accountService) {
         this._router = _router;
         this._accountService = _accountService;
+        this.user = new user_1.User();
     }
     Login.prototype.login = function () {
         var _this = this;
-        this._accountService.login(this.userName, this.password)
+        this._accountService.login(this.user)
             .subscribe(function (res) {
             if (res)
                 _this._router.parent.navigateByUrl('/home');

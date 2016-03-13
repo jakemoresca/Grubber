@@ -4,6 +4,7 @@ import {Router} from 'angular2/router';
 import {Routes} from '../routes.config';
 import {Http, Headers} from 'angular2/http';
 import {AccountService} from './account.service';
+import {User} from '../core/user';
 
 @Component({
     selector: 'login',
@@ -11,15 +12,15 @@ import {AccountService} from './account.service';
     templateUrl: 'login.html'
 })
 export class Login {
-    userName: string;
-    password: string;    
+    user: User;
 
     constructor(private _router: Router, private _accountService: AccountService)
     {
+        this.user = new User();
     }
 
     login() {
-        this._accountService.login(this.userName, this.password)
+        this._accountService.login(this.user)
             .subscribe(res =>
             {
                 if (res) this._router.parent.navigateByUrl('/home');

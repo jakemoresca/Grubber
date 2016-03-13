@@ -28,7 +28,7 @@
                                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                                 </button>
                             </td>
-                            <td>{{tripSchedule.scheduleDate}}</td>
+                            <td>{{tripSchedule.scheduleDate}} - {{tripSchedule.scheduleTime}}</td>
                             <td><span *ngIf="tripSchedule.landMarks.length > 0">{{tripSchedule.landMarks[0].landMarkName}}</span></td>
                             <td><span *ngIf="tripSchedule.landMarks.length > 1">{{tripSchedule.landMarks[tripSchedule.landMarks.length - 1].landMarkName}}</span></td>
                         </tr>

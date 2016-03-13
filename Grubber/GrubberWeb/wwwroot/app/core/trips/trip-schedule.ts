@@ -5,7 +5,7 @@ export class TripSchedule {
     public id: number;
     public carId: number;
     public scheduleTime: string;
-    public scheduleDate: Date;
+    public scheduleDate: string;
     public landMarks: Array<TripLandMark>;
 
     public isNew: boolean;

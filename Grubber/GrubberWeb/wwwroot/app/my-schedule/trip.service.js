@@ -9,9 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var http_1 = require('angular2/http');
 var core_1 = require('angular2/core');
-/**
- * car service
- */
 var TripService = (function () {
     function TripService(_http) {
         this._http = _http;

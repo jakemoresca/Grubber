@@ -1,45 +1,71 @@
-<div class="mdl-grid main-content">
-
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--10-col-phone mdl-cell--top">
-        <div class="wide-card mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
-                <div class="card-heading" style="height: 100%;">
-                    <h5>Tomorrow 5:00 PM</h5>
-                </div>
-                <!--<img class="card-image card-image-centered" itemprop="image" src="../../Images/warcraft.jpg" />-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Reserve for Carpool</h3>
             </div>
-            <div class="mdl-card__supporting-text">
-                Driver: Driver Name
-                <hr />
-                Riders: Rider A, Rider B
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="getCurrentPosition()">
-                    View Stops
-                </a>
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="tripTo">From :</label>
+                        <input type="text" class="form-control" id="tripTo" placeSearchBox (locationChanged)="startTripChanged($event)">
+                    </div>
+                    <div class="form-group">
+                        <label for="tripTo">To :</label>
+                        <input type="text" class="form-control" id="tripTo" placeSearchBox (locationChanged)="toTripChanged($event)">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <div class='input-group date' bootstrap-datepicker>
+                            <input type='text' class="form-control" [(ngModel)]="scheduleDate" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default" (click)="searchDriver()">Search for Driver</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <!--<div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--10-col-phone mdl-cell--top">
-        <div class="wide-card mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
-                <div class="card-heading" style="height: 100%;">
-                    <h5>March 1, 2016 5:00 PM</h5>
-                </div>
-                <img class="card-image card-image-centered" itemprop="image" src="../../Images/warcraft.jpg" />
+<div class="row" [hidden]="topTripDistances.length == 0">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Search Results</h3>
             </div>
-            <div class="mdl-card__supporting-text">
-                Driver: Driver Name
-                <hr />
-                Riders:  Rider A, Rider B
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                    View Stops
-                </a>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Driver</th>
+                            <th>Schedule Date</th>
+                            <th>Starting Point</th>
+                            <th>End Point</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="#tripDistance of topTripDistances; #td = index">
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>Driver Name</td>
+                            <td>{{tripDistance.scheduleDate}} - {{tripDistance.scheduleTime}}</td>
+                            <td><span *ngIf="tripDistance.landMarks.length > 0">{{tripDistance.landMarks[0].landMarkName}}</span></td>
+                            <td><span *ngIf="tripDistance.landMarks.length > 1">{{tripDistance.landMarks[tripDistance.landMarks.length - 1].landMarkName}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>-->
-    <!--<div class="google-map-container" googleMap [latitude]="lat" [longitude]="lng" [useNative]="false"></div>-->
+    </div>
 </div>
