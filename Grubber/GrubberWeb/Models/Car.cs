@@ -1,4 +1,6 @@
-﻿namespace GrubberApi.Models
+﻿using GrubberWeb.Models;
+
+namespace GrubberApi.Models
 {
     public class Car
     {
@@ -9,5 +11,7 @@
         public string Color { get; set; }
         public string PlateNo { get; set; }
         public int NoOfSeats { get; set; }
+        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
     }
 }

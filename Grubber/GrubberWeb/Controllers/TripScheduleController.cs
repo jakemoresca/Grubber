@@ -35,11 +35,11 @@ namespace GrubberApi.Controllers
             return tripScheduleViewModels.ToArray();
         }
 
-        [HttpGet("api/tripschedule/{carId}")]
-        public async Task<TripScheduleViewModel[]> Get(int carId)
+        [HttpGet("api/tripschedule/{userId}")]
+        public async Task<TripScheduleViewModel[]> Get(string userId)
         {
             var tripScheduleViewModels = new List<TripScheduleViewModel>();
-            var tripSchedules = await _context.TripSchedules.Include(ts => ts.TripLandMarks).Where(ts => ts.CarId == carId).ToListAsync();
+            var tripSchedules = await _context.TripSchedules.Include(ts => ts.TripLandMarks).Where(ts => ts.UserId == userId).ToListAsync();
             tripSchedules.ForEach(ts =>
             {
                 var tsViewModel = _tripScheduleMapper.ToViewModel(ts);
@@ -66,7 +66,7 @@ namespace GrubberApi.Controllers
                 tripSchedules[ts] = _tripScheduleMapper.ToViewModel(tripSchedule);
             }
 
-            tripSchedules = await Get(tripSchedules[0].CarId);
+            tripSchedules = await Get(tripSchedules[0].UserId);
 
             return tripSchedules;
         }
@@ -75,12 +75,12 @@ namespace GrubberApi.Controllers
         public async Task<TripScheduleViewModel[]> Delete(int id)
         {
             var tripSchedule = await _context.TripSchedules.FirstOrDefaultAsync(ts => ts.Id == id);
-            var carId = tripSchedule.CarId;
+            var userId = tripSchedule.UserId;
             _context.TripSchedules.Remove(tripSchedule);
             await _context.SaveChangesAsync();
 
             var tripScheduleViewModels = new List<TripScheduleViewModel>();
-            var tripSchedules = await _context.TripSchedules.Include(ts => ts.TripLandMarks).Where(ts => ts.CarId == carId).ToListAsync();
+            var tripSchedules = await _context.TripSchedules.Include(ts => ts.TripLandMarks).Where(ts => ts.UserId == userId).ToListAsync();
             tripSchedules.ForEach(ts =>
             {
                 var tsViewModel = _tripScheduleMapper.ToViewModel(ts);

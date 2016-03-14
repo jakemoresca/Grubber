@@ -12,16 +12,22 @@ var ng = require('angular2/common');
 var router_1 = require('angular2/router');
 var car_1 = require('../core/cars/car');
 var car_service_1 = require('./car.service');
+var account_service_1 = require('../login/account.service');
 var MyCar = (function () {
-    function MyCar(_router, _carService) {
+    function MyCar(_router, _carService, _accountService) {
         var _this = this;
         this._router = _router;
         this._carService = _carService;
+        this._accountService = _accountService;
+        this.initializeModels();
         _carService.getCarMakes()
             .subscribe(function (res) { return _this.carMakes = res; });
-        _carService.getCar(1)
-            .subscribe(function (res) { return _this.car = res; });
-        this.initializeModels();
+        _accountService.getCurrentUser()
+            .subscribe(function (resUser) {
+            _this.user = resUser;
+            _carService.getCar(_this.user.id)
+                .subscribe(function (resCar) { return _this.car = resCar; });
+        });
     }
     MyCar.prototype.initializeModels = function () {
         this.car = new car_1.Car();
@@ -42,7 +48,7 @@ var MyCar = (function () {
             templateUrl: 'my-car.html',
             directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, car_service_1.CarService])
+        __metadata('design:paramtypes', [router_1.Router, car_service_1.CarService, account_service_1.AccountService])
     ], MyCar);
     return MyCar;
 })();

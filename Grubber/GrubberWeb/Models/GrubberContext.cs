@@ -31,15 +31,6 @@ namespace GrubberApi.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>()
-                .Property(c => c.UserId)
-                .IsRequired()
-                .UseSqlServerIdentityColumn();
-
-            modelBuilder.Entity<ApplicationUser>()
-                .Property(c => c.CarId)
-                .IsRequired(false);
-
             // Configure Asp Net Identity Tables
             modelBuilder.Entity<ApplicationUser>().ToTable("User");
             modelBuilder.Entity<ApplicationUser>().Property(u => u.PasswordHash).HasMaxLength(500);
@@ -64,6 +55,10 @@ namespace GrubberApi.Models
             modelBuilder.Entity<Car>()
                 .Property(c => c.NoOfSeats)
                 .IsRequired();
+
+            modelBuilder.Entity<Car>()
+                .Property(c => c.UserId)
+                .IsRequired();
         }
 
         private void SetTripScheduleDefinition(ModelBuilder modelBuilder)
@@ -74,7 +69,7 @@ namespace GrubberApi.Models
                 .UseSqlServerIdentityColumn();
 
             modelBuilder.Entity<TripSchedule>()
-                .Property(c => c.CarId)
+                .Property(c => c.UserId)
                 .IsRequired();
 
             modelBuilder.Entity<TripSchedule>()

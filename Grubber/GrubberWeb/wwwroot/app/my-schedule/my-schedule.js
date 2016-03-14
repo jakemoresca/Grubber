@@ -10,31 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var ng = require('angular2/common');
 var router_1 = require('angular2/router');
-var car_1 = require('../core/cars/car');
+var user_1 = require('../core/user');
 var trip_schedule_1 = require('../core/trips/trip-schedule');
 var trip_landmark_1 = require('../core/trips/trip-landmark');
 var common_1 = require('../core/common');
 var google_map_1 = require('../core/mapping/google-map');
 var bootstrap_datepicker_1 = require('../core/datepicker/bootstrap-datepicker');
-var car_service_1 = require('../my-car/car.service');
+var account_service_1 = require('../login/account.service');
 var trip_service_1 = require('./trip.service');
 var MySchedule = (function () {
-    function MySchedule(_router, _carService, _tripService) {
+    function MySchedule(_router, _tripService, _accountService) {
         var _this = this;
         this._router = _router;
-        this._carService = _carService;
         this._tripService = _tripService;
+        this._accountService = _accountService;
         this.dayOfWeeks = common_1.EnumHelper.getNamesAndValues(trip_schedule_1.DayOfWeek);
         this.showDetailView = false;
-        _carService.getCarMakes()
-            .subscribe(function (res) { return _this.carMakes = res; });
-        _carService.getCar(1)
-            .subscribe(function (res) { return _this.car = res; });
-        _tripService.getCarTripSchedules(1)
-            .subscribe(function (res) { return _this.tripSchedules = res; });
         this.initializeModels();
         this.mockCarAndTripSchedules();
         this.initializeModal();
+        _accountService.getCurrentUser()
+            .subscribe(function (resCar) {
+            _this.user = resCar;
+            _tripService.getCarTripSchedules(_this.user.id)
+                .subscribe(function (resSched) { return _this.tripSchedules = resSched; });
+        });
     }
     MySchedule.prototype.initializeModels = function () {
         this.currentLandMark = new trip_landmark_1.TripLandMark();
@@ -44,8 +44,7 @@ var MySchedule = (function () {
         this.currentLandMarkClone = common_1.ObjHelper.copyObject(this.currentLandMark);
         this.currentTripSchedule = new trip_schedule_1.TripSchedule();
         this.currentTripScheduleClone = common_1.ObjHelper.copyObject(this.currentTripSchedule);
-        this.car = new car_1.Car();
-        this.carMakes = new Array();
+        this.user = new user_1.User();
         this.tripSchedules = new Array();
     };
     MySchedule.prototype.initializeModal = function () {
@@ -53,9 +52,6 @@ var MySchedule = (function () {
     };
     MySchedule.prototype.mockCarAndTripSchedules = function () {
         this.driverNote = "No sleeping. zzzZZZZzzz";
-    };
-    MySchedule.prototype.onMakeChange = function (newValue) {
-        this.car.makeId = newValue;
     };
     MySchedule.prototype.searchLandMarkName = function (newValue) {
         var geocoder = new google.maps.Geocoder();
@@ -156,7 +152,7 @@ var MySchedule = (function () {
     };
     MySchedule.prototype.newTripSchedule = function () {
         var newTripSchedule = new trip_schedule_1.TripSchedule();
-        newTripSchedule.carId = this.car.id;
+        newTripSchedule.userId = this.user.id;
         newTripSchedule.isNew = true;
         newTripSchedule.landMarks = new Array();
         this.tripSchedules.push(newTripSchedule);
@@ -197,7 +193,7 @@ var MySchedule = (function () {
             directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, google_map_1.GoogleMap, bootstrap_datepicker_1.BootstrapDatePicker],
             styles: ['.google-map-container { height: 330px; }']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, car_service_1.CarService, trip_service_1.TripService])
+        __metadata('design:paramtypes', [router_1.Router, trip_service_1.TripService, account_service_1.AccountService])
     ], MySchedule);
     return MySchedule;
 })();

@@ -12,7 +12,7 @@ namespace GrubberWeb.Mappers
             return new TripSchedule
             {
                 Id = viewModel.Id,
-                CarId = viewModel.CarId,
+                UserId = viewModel.UserId,
                 ScheduleDateTime = Convert.ToDateTime(string.Format("{0} {1}", viewModel.ScheduleDate, viewModel.ScheduleTime)),
                 TripLandMarks = viewModel.LandMarks.Select(tl => ToModel(tl)).ToList()
             };
@@ -23,7 +23,7 @@ namespace GrubberWeb.Mappers
             return new TripScheduleViewModel
             {
                 Id = model.Id,
-                CarId = model.CarId,
+                UserId = model.UserId,
                 ScheduleDate = model.ScheduleDateTime.ToString("MM/dd/yyyy"),
                 ScheduleTime = model.ScheduleDateTime.ToString("hh:mm tt"),
                 LandMarks = model.TripLandMarks.Select(tl => ToViewModel(tl)).ToList()

@@ -32,8 +32,8 @@ export class CarService {
             });
     }
 
-    getCar(id: number) {
-        return this._http.get(this.apiUrl + 'car/' + id.toString())
+    getCar(userId: string) {
+        return this._http.get(this.apiUrl + 'car/' + userId)
             .map((response) => {
                 return response.json();
             })

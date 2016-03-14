@@ -9,8 +9,8 @@ namespace GrubberApi.Models
     public class TripSchedule
     {
         public int Id { get; set; }
-        public Car Car { get; set; }
-        public int CarId { get; set; }
+        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
         public DateTime ScheduleDateTime { get; set; }
         public IList<TripLandMark> TripLandMarks { get; set; }
         public IList<TripReservation> TripReservations { get; set; }

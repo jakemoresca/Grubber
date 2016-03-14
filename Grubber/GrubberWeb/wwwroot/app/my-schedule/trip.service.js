@@ -32,8 +32,8 @@ var TripService = (function () {
             return result;
         });
     };
-    TripService.prototype.getCarTripSchedules = function (carId) {
-        return this._http.get(this.apiUrl + 'tripschedule/' + carId.toString())
+    TripService.prototype.getCarTripSchedules = function (userId) {
+        return this._http.get(this.apiUrl + 'tripschedule/' + userId.toString())
             .map(function (response) {
             return response.json();
         })

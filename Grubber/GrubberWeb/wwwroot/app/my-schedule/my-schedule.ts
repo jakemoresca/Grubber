@@ -3,13 +3,14 @@ import * as ng from 'angular2/common';
 import {Router} from 'angular2/router';
 import {Routes} from '../routes.config';
 import {Car} from '../core/cars/car';
+import {User} from '../core/user';
 import {CarMake} from '../core/cars/car-make';
 import {TripSchedule, DayOfWeek, TripType} from '../core/trips/trip-schedule';
 import {TripLandMark} from '../core/trips/trip-landmark';
 import {EnumHelper, ObjHelper} from '../core/common';
 import {GoogleMap} from '../core/mapping/google-map';
 import {BootstrapDatePicker} from '../core/datepicker/bootstrap-datepicker';
-import {CarService} from '../my-car/car.service';
+import {AccountService} from '../login/account.service';
 import {TripService} from './trip.service';
 
 declare var $: any;
@@ -22,10 +23,9 @@ declare var $: any;
     styles: ['.google-map-container { height: 330px; }']
 })
 export class MySchedule {
-    carMakes: Array<CarMake>;
     dayOfWeeks: Array<any> = EnumHelper.getNamesAndValues(DayOfWeek);
 
-    car: Car;
+    user: User;
     tripSchedules: Array<TripSchedule>;
     driverNote: string;
 
@@ -37,19 +37,18 @@ export class MySchedule {
     currentLandMarkClone: TripLandMark;
     showDetailView: boolean = false;
 
-    constructor(private _router: Router, private _carService: CarService, private _tripService: TripService) {
-        _carService.getCarMakes()
-            .subscribe(res => this.carMakes = res);
-
-        _carService.getCar(1)
-            .subscribe(res => this.car = res);
-
-        _tripService.getCarTripSchedules(1)
-            .subscribe(res => this.tripSchedules = res);
-
+    constructor(private _router: Router, private _tripService: TripService, private _accountService: AccountService) {
         this.initializeModels();
         this.mockCarAndTripSchedules();
         this.initializeModal();
+
+        _accountService.getCurrentUser()
+            .subscribe(resCar => {
+                this.user = resCar;
+
+                _tripService.getCarTripSchedules(this.user.id)
+                    .subscribe(resSched => this.tripSchedules = resSched);
+            });
 	}
 
     initializeModels() {
@@ -62,8 +61,7 @@ export class MySchedule {
         this.currentTripSchedule = new TripSchedule();
         this.currentTripScheduleClone = ObjHelper.copyObject<TripSchedule>(this.currentTripSchedule);
 
-        this.car = new Car();
-        this.carMakes = new Array<CarMake>();
+        this.user = new User();
         this.tripSchedules = new Array<TripSchedule>();
     }
 
@@ -73,10 +71,6 @@ export class MySchedule {
 
     mockCarAndTripSchedules() {
         this.driverNote = "No sleeping. zzzZZZZzzz";
-    }
-
-    onMakeChange(newValue) {
-        this.car.makeId = newValue;
     }
 
     searchLandMarkName(newValue) {
@@ -189,7 +183,7 @@ export class MySchedule {
 
     newTripSchedule() {
         var newTripSchedule = new TripSchedule();
-        newTripSchedule.carId = this.car.id;
+        newTripSchedule.userId = this.user.id;
         newTripSchedule.isNew = true;
         newTripSchedule.landMarks = new Array<TripLandMark>();
 

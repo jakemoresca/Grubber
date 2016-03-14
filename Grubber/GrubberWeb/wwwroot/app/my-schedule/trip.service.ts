@@ -29,8 +29,8 @@ export class TripService {
             });
     }
 
-    getCarTripSchedules(carId: number) {
-        return this._http.get(this.apiUrl + 'tripschedule/' + carId.toString())
+    getCarTripSchedules(userId: string) {
+        return this._http.get(this.apiUrl + 'tripschedule/' + userId.toString())
             .map((response) => {
                 return response.json();
             })

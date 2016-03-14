@@ -6,9 +6,5 @@ namespace GrubberWeb.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Key]
-        public int UserId { get; set; }
-        public int? CarId { get; set; }
-        public Car Car { get; set; }
     }
 }

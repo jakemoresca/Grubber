@@ -21,10 +21,10 @@ namespace GrubberApi.Controllers
             return _context.Cars.ToArray();
         }
 
-        [HttpGet("api/car/{id}")]
-        public Car Get(int id)
+        [HttpGet("api/car/{userId}")]
+        public Car Get(string userId)
         {
-            return _context.Cars.FirstOrDefault(c => c.Id == id);
+            return _context.Cars.FirstOrDefault(c => c.UserId == userId);
         }
 
         [HttpPost("api/car")]

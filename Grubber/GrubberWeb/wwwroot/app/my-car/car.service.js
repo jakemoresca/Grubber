@@ -35,8 +35,8 @@ var CarService = (function () {
             return result;
         });
     };
-    CarService.prototype.getCar = function (id) {
-        return this._http.get(this.apiUrl + 'car/' + id.toString())
+    CarService.prototype.getCar = function (userId) {
+        return this._http.get(this.apiUrl + 'car/' + userId)
             .map(function (response) {
             return response.json();
         })

@@ -48,8 +48,8 @@ namespace GrubberWeb
             services.AddTransient<DBInitializer>();
             //services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            //var connection = @"Server=.\tdcidev;Database=Grubber;Trusted_Connection=True;";
-            var connection = @"Server=.\SQLEXPRESS;Database=Grubber;Trusted_Connection=True;";
+            var connection = @"Server=.\tdcidev;Database=Grubber;Trusted_Connection=True;";
+            //var connection = @"Server=.\SQLEXPRESS;Database=Grubber;Trusted_Connection=True;";
 
             services.AddEntityFramework()
                 .AddSqlServer()

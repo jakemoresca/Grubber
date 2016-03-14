@@ -2,10 +2,12 @@ import {Component} from 'angular2/core';
 import * as ng from 'angular2/common';
 import {Router} from 'angular2/router';
 import {Routes} from '../routes.config';
+import {User} from '../core/user';
 import {Car} from '../core/cars/car';
 import {CarMake} from '../core/cars/car-make';
 import {EnumHelper, ObjHelper} from '../core/common';
 import {CarService} from './car.service';
+import {AccountService} from '../login/account.service';
 
 declare var $: any;
 
@@ -18,15 +20,21 @@ declare var $: any;
 export class MyCar {
     carMakes: Array<CarMake>;
     car: Car;
+    user: User;
 
-    constructor(private _router: Router, private _carService: CarService) {
+    constructor(private _router: Router, private _carService: CarService, private _accountService: AccountService) {
+        this.initializeModels();
+
         _carService.getCarMakes()
             .subscribe(res => this.carMakes = res);
 
-        _carService.getCar(1)
-            .subscribe(res => this.car = res);
+        _accountService.getCurrentUser()
+            .subscribe(resUser => {
+                this.user = resUser;
 
-        this.initializeModels();
+                _carService.getCar(this.user.id)
+                    .subscribe(resCar => this.car = resCar);
+            });
 	}
 
     initializeModels() {

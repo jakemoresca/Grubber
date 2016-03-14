@@ -3,7 +3,7 @@ import {EnumHelper, ObjHelper} from '../common';
 
 export class TripSchedule {
     public id: number;
-    public carId: number;
+    public userId: string;
     public scheduleTime: string;
     public scheduleDate: string;
     public landMarks: Array<TripLandMark>;
