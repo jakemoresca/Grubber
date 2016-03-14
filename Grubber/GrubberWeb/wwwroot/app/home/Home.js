@@ -25,6 +25,8 @@ var Home = (function () {
         this._accountService = _accountService;
         this._tripService = _tripService;
         this.scheduleDate = moment().format('MM/DD/YYYY');
+        _accountService.getAllUsers()
+            .subscribe(function (res) { return _this.users = res; });
         _accountService.getCurrentUser()
             .subscribe(function (res) {
             if (res.userName == null) {

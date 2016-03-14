@@ -47,12 +47,29 @@ export class AccountService {
             .map((response) => {
                 return response.json();
             })
-            .map((car: Car) => {
+            .map((user: User) => {
                 let result: any = null;
 
-                if (car) {
-                    result = car;
+                if (user) {
+                    result = user;
                 };
+                return result;
+            });
+    }
+
+    getAllUsers() {
+        return this._http.get(this.apiUrl)
+            .map((response) => {
+                return response.json();
+            })
+            .map((users: Array<any>) => {
+                let result: Array<User> = [];
+
+                if (users) {
+                    users.forEach((user) => {
+                        result.push(user)
+                    });
+                }
                 return result;
             });
     }

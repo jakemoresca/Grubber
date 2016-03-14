@@ -50,12 +50,27 @@ var AccountService = (function () {
             .map(function (response) {
             return response.json();
         })
-            .map(function (car) {
+            .map(function (user) {
             var result = null;
-            if (car) {
-                result = car;
+            if (user) {
+                result = user;
             }
             ;
+            return result;
+        });
+    };
+    AccountService.prototype.getAllUsers = function () {
+        return this._http.get(this.apiUrl)
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (users) {
+            var result = [];
+            if (users) {
+                users.forEach(function (user) {
+                    result.push(user);
+                });
+            }
             return result;
         });
     };

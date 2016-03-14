@@ -22,6 +22,7 @@ import {BootstrapDatePicker} from '../core/datepicker/bootstrap-datepicker';
 })
 export class Home{
     user: User;
+    users: Array<User>;
     startLat: number;
     startLng: number;
     startPlace: string;
@@ -35,6 +36,9 @@ export class Home{
     topTripDistances: Array<TripSchedule>;
 
     constructor(private _router: Router, private _location: Location, private _accountService: AccountService, private _tripService: TripService) {
+        _accountService.getAllUsers()
+            .subscribe(res => this.users = res);
+
         _accountService.getCurrentUser()
             .subscribe(res => {
                 if (res.userName == null) {

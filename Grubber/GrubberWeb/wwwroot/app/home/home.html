@@ -58,7 +58,13 @@
                                     </label>
                                 </div>
                             </td>
-                            <td>Driver Name</td>
+                            <td>
+                                <span *ngFor="#user of users; #u = index">
+                                    <span [hidden]="user.id != tripDistance.userId">
+                                        {{user.userName}}
+                                    </span>
+                                </span>
+                            </td>
                             <td>{{tripDistance.scheduleDate}} - {{tripDistance.scheduleTime}}</td>
                             <td><span *ngIf="tripDistance.landMarks.length > 0">{{tripDistance.landMarks[0].landMarkName}}</span></td>
                             <td><span *ngIf="tripDistance.landMarks.length > 1">{{tripDistance.landMarks[tripDistance.landMarks.length - 1].landMarkName}}</span></td>
