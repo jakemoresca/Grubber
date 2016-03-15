@@ -116,6 +116,7 @@ var GoogleMap = (function () {
                 zoom: 15
             };
             this._map = new google.maps.Map(this._mapDiv, opts);
+            this.updateCurrentLocationMarker(new google.maps.LatLng(this._latitude, this._longitude));
         }
     };
     GoogleMap.prototype.initAutocomplete = function () {

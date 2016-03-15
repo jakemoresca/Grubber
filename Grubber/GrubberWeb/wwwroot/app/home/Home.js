@@ -17,6 +17,7 @@ var place_search_box_1 = require('../core/mapping/place-search-box');
 var trip_landmark_1 = require('../core/trips/trip-landmark');
 var trip_service_1 = require('../my-schedule/trip.service');
 var bootstrap_datepicker_1 = require('../core/datepicker/bootstrap-datepicker');
+var google_map_1 = require('../core/mapping/google-map');
 var Home = (function () {
     function Home(_router, _location, _accountService, _tripService) {
         var _this = this;
@@ -24,6 +25,8 @@ var Home = (function () {
         this._location = _location;
         this._accountService = _accountService;
         this._tripService = _tripService;
+        this.startLat = 14.550157;
+        this.startLng = 121.046736;
         this.scheduleDate = moment().format('MM/DD/YYYY');
         _accountService.getAllUsers()
             .subscribe(function (res) { return _this.users = res; });
@@ -127,7 +130,8 @@ var Home = (function () {
             selector: 'home',
             moduleId: module.id,
             templateUrl: 'home.html',
-            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, place_search_box_1.PlaceSearchBox, bootstrap_datepicker_1.BootstrapDatePicker]
+            directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, place_search_box_1.PlaceSearchBox, bootstrap_datepicker_1.BootstrapDatePicker, google_map_1.GoogleMap],
+            styles: ['.google-map-container { height: 330px; }']
         }), 
         __metadata('design:paramtypes', [router_1.Router, router_1.Location, account_service_1.AccountService, trip_service_1.TripService])
     ], Home);

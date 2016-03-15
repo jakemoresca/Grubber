@@ -13,18 +13,20 @@ import {TripDistance} from '../core/trips/trip-distance';
 import {TripLandMark} from '../core/trips/trip-landmark';
 import {TripService} from '../my-schedule/trip.service';
 import {BootstrapDatePicker} from '../core/datepicker/bootstrap-datepicker';
+import {GoogleMap} from '../core/mapping/google-map';
 
 @Component({
     selector: 'home',
     moduleId: module.id,
     templateUrl: 'home.html',
-    directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, PlaceSearchBox, BootstrapDatePicker]
+    directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, PlaceSearchBox, BootstrapDatePicker, GoogleMap],
+    styles: ['.google-map-container { height: 330px; }']
 })
 export class Home{
     user: User;
     users: Array<User>;
-    startLat: number;
-    startLng: number;
+    startLat: number = 14.550157;
+    startLng: number = 121.046736;
     startPlace: string;
     toLat: number;
     toLng: number;

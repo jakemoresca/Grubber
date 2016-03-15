@@ -31,6 +31,9 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="google-map-container" id="mapLandMark" googleMap [latitude]="startLat" [longitude]="startLng" [useNative]="false"></div>
+</div>
 
 <div class="row" [hidden]="topTripDistances.length == 0">
     <div class="col-md-12">

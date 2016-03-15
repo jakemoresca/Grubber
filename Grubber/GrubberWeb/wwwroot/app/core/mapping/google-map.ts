@@ -110,6 +110,7 @@ export class GoogleMap implements AfterViewInit {
 
             this._map = new google.maps.Map(this._mapDiv, opts);
 
+            this.updateCurrentLocationMarker(new google.maps.LatLng(this._latitude, this._longitude));
             //this.initAutocomplete();
         }
     }
