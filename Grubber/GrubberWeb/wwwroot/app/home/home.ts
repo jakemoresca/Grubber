@@ -6,6 +6,7 @@ import * as ng from 'angular2/common';
 import {Router, Location} from 'angular2/router';
 import {Routes} from '../routes.config';
 import {User} from '../core/user';
+import {ReservationService} from '../core/reservation/reservation.service';
 import {AccountService} from '../login/account.service';
 import {PlaceSearchBox} from '../core/mapping/place-search-box';
 import {TripSchedule, DayOfWeek, TripType} from '../core/trips/trip-schedule';
@@ -14,6 +15,8 @@ import {TripLandMark} from '../core/trips/trip-landmark';
 import {TripService} from '../my-schedule/trip.service';
 import {BootstrapDatePicker} from '../core/datepicker/bootstrap-datepicker';
 import {GoogleMap} from '../core/mapping/google-map';
+import {TripReservation, ReservationStatus} from '../core/reservation/trip-reservation';
+import {BatchTripReservation} from '../core/reservation/batch-trip-reservation';
 
 @Component({
     selector: 'home',
@@ -35,9 +38,9 @@ export class Home{
     locationWatchId: number;
     tripSchedules: Array<TripSchedule>;
 
-    topTripDistances: Array<TripSchedule>;
+    topTripDistances: Array<TripDistance>;
 
-    constructor(private _router: Router, private _location: Location, private _accountService: AccountService, private _tripService: TripService) {
+    constructor(private _router: Router, private _location: Location, private _accountService: AccountService, private _tripService: TripService, private _reservationService: ReservationService) {
         _accountService.getAllUsers()
             .subscribe(res => this.users = res);
 
@@ -74,6 +77,41 @@ export class Home{
             });
     }
 
+    reserveTripSchedule() {
+        var selectedTripDistances = this.topTripDistances.filter(tripDistance => tripDistance.isSelected == true);
+        var batchTripReservation = this.createBatchTripReservation(selectedTripDistances);
+
+        this._reservationService.addBatchTripReservation(batchTripReservation)
+            .subscribe(result => alert("Reservation Successful"));
+    }
+
+    createBatchTripReservation(tripDistances: Array<TripDistance>) {
+        var batchTripReservation = new BatchTripReservation();
+        batchTripReservation.reservations = new Array<TripReservation>();
+
+        var self = this;
+        tripDistances.forEach(tripDistance => {
+            var tripReservation = self.createTripReservation(tripDistance);
+            batchTripReservation.reservations.push(tripReservation);
+        });
+
+        return batchTripReservation;
+    }
+
+    createTripReservation(tripDistance: TripDistance): TripReservation {
+        var tripReservation = new TripReservation();
+        tripReservation.status = ReservationStatus.Requested;
+        tripReservation.tripStart = this.startPlace;
+        tripReservation.tripStartLat = this.startLat;
+        tripReservation.tripStartLng = this.startLng;
+        tripReservation.tripTo = this.toPlace;
+        tripReservation.tripToLat = this.toLat;
+        tripReservation.tripToLng = this.toLng;
+        tripReservation.tripSchedule = <TripSchedule>tripDistance;
+        
+        return tripReservation;
+    }
+
     getNearestTripDistance() {
         var spherical = google.maps.geometry.spherical;
         var tempTopTripDistances = new Array<TripDistance>();
@@ -84,6 +122,7 @@ export class Home{
             var nearestFromDistance: number;
             var nearestTo = new TripLandMark();
             var nearestToDistance: number;
+            var nearestIndex: number;
 
             var scheduledDate = moment(tripSchedule.scheduleDate, "MM/DD/yyyy");
             var isValidSchedule: boolean = false;
@@ -99,15 +138,17 @@ export class Home{
                     if (nearestFrom.id == null) {
                         nearestFromDistance = startDistance;
                         nearestFrom = tripLandMark;
+                        nearestIndex = fromTL;
                     }
 
                     if (nearestFromDistance > startDistance) {
                         nearestFromDistance = startDistance;
                         nearestFrom = tripLandMark;
+                        nearestIndex = fromTL;
                     }
                 }
 
-                for (var toTL = 1; toTL < tripSchedule.landMarks.length; toTL++) {
+                for (var toTL = nearestIndex; toTL < tripSchedule.landMarks.length; toTL++) {
                     var tripLandMark = tripSchedule.landMarks[toTL];
                     var toDistance = spherical.computeDistanceBetween(new google.maps.LatLng(tripLandMark.latitude, tripLandMark.longitude),
                         new google.maps.LatLng(this.toLat, this.toLng));

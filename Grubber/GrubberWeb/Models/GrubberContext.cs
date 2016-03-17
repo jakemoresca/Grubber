@@ -16,6 +16,8 @@ namespace GrubberApi.Models
         public DbSet<Car> Cars { get; set; }
         public DbSet<TripSchedule> TripSchedules { get; set; }
         public DbSet<TripLandMark> TripLandMarks { get; set; }
+        public DbSet<BatchTripReservation> BatchTripReservations { get; set; }
+        public DbSet<TripReservation> TripReservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

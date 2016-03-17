@@ -12,19 +12,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var ng = require('angular2/common');
 var router_1 = require('angular2/router');
+var reservation_service_1 = require('../core/reservation/reservation.service');
 var account_service_1 = require('../login/account.service');
 var place_search_box_1 = require('../core/mapping/place-search-box');
 var trip_landmark_1 = require('../core/trips/trip-landmark');
 var trip_service_1 = require('../my-schedule/trip.service');
 var bootstrap_datepicker_1 = require('../core/datepicker/bootstrap-datepicker');
 var google_map_1 = require('../core/mapping/google-map');
+var trip_reservation_1 = require('../core/reservation/trip-reservation');
+var batch_trip_reservation_1 = require('../core/reservation/batch-trip-reservation');
 var Home = (function () {
-    function Home(_router, _location, _accountService, _tripService) {
+    function Home(_router, _location, _accountService, _tripService, _reservationService) {
         var _this = this;
         this._router = _router;
         this._location = _location;
         this._accountService = _accountService;
         this._tripService = _tripService;
+        this._reservationService = _reservationService;
         this.startLat = 14.550157;
         this.startLng = 121.046736;
         this.scheduleDate = moment().format('MM/DD/YYYY');
@@ -59,6 +63,34 @@ var Home = (function () {
             _this.getNearestTripDistance();
         });
     };
+    Home.prototype.reserveTripSchedule = function () {
+        var selectedTripDistances = this.topTripDistances.filter(function (tripDistance) { return tripDistance.isSelected == true; });
+        var batchTripReservation = this.createBatchTripReservation(selectedTripDistances);
+        this._reservationService.addBatchTripReservation(batchTripReservation)
+            .subscribe(function (result) { return alert("Reservation Successful"); });
+    };
+    Home.prototype.createBatchTripReservation = function (tripDistances) {
+        var batchTripReservation = new batch_trip_reservation_1.BatchTripReservation();
+        batchTripReservation.reservations = new Array();
+        var self = this;
+        tripDistances.forEach(function (tripDistance) {
+            var tripReservation = self.createTripReservation(tripDistance);
+            batchTripReservation.reservations.push(tripReservation);
+        });
+        return batchTripReservation;
+    };
+    Home.prototype.createTripReservation = function (tripDistance) {
+        var tripReservation = new trip_reservation_1.TripReservation();
+        tripReservation.status = trip_reservation_1.ReservationStatus.Requested;
+        tripReservation.tripStart = this.startPlace;
+        tripReservation.tripStartLat = this.startLat;
+        tripReservation.tripStartLng = this.startLng;
+        tripReservation.tripTo = this.toPlace;
+        tripReservation.tripToLat = this.toLat;
+        tripReservation.tripToLng = this.toLng;
+        tripReservation.tripSchedule = tripDistance;
+        return tripReservation;
+    };
     Home.prototype.getNearestTripDistance = function () {
         var _this = this;
         var spherical = google.maps.geometry.spherical;
@@ -69,6 +101,7 @@ var Home = (function () {
             var nearestFromDistance;
             var nearestTo = new trip_landmark_1.TripLandMark();
             var nearestToDistance;
+            var nearestIndex;
             var scheduledDate = moment(tripSchedule.scheduleDate, "MM/DD/yyyy");
             var isValidSchedule = false;
             if (tripSchedule.landMarks.length >= 2)
@@ -80,13 +113,15 @@ var Home = (function () {
                     if (nearestFrom.id == null) {
                         nearestFromDistance = startDistance;
                         nearestFrom = tripLandMark;
+                        nearestIndex = fromTL;
                     }
                     if (nearestFromDistance > startDistance) {
                         nearestFromDistance = startDistance;
                         nearestFrom = tripLandMark;
+                        nearestIndex = fromTL;
                     }
                 }
-                for (var toTL = 1; toTL < tripSchedule.landMarks.length; toTL++) {
+                for (var toTL = nearestIndex; toTL < tripSchedule.landMarks.length; toTL++) {
                     var tripLandMark = tripSchedule.landMarks[toTL];
                     var toDistance = spherical.computeDistanceBetween(new google.maps.LatLng(tripLandMark.latitude, tripLandMark.longitude), new google.maps.LatLng(_this.toLat, _this.toLng));
                     if (nearestTo.id == null) {
@@ -133,7 +168,7 @@ var Home = (function () {
             directives: [ng.CORE_DIRECTIVES, ng.FORM_DIRECTIVES, place_search_box_1.PlaceSearchBox, bootstrap_datepicker_1.BootstrapDatePicker, google_map_1.GoogleMap],
             styles: ['.google-map-container { height: 330px; }']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, router_1.Location, account_service_1.AccountService, trip_service_1.TripService])
+        __metadata('design:paramtypes', [router_1.Router, router_1.Location, account_service_1.AccountService, trip_service_1.TripService, reservation_service_1.ReservationService])
     ], Home);
     return Home;
 })();

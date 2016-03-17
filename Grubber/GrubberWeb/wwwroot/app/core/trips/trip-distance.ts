@@ -8,4 +8,6 @@ export class TripDistance extends TripSchedule {
 
     public fromDistance: number;
     public toDistance: number;
+
+    public isSelected: boolean;
 }
