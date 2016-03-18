@@ -6,5 +6,6 @@ namespace GrubberWeb.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public string Style { get; set; }
     }
 }

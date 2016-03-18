@@ -94,5 +94,16 @@ namespace GrubberWeb.Controllers
         {
             return _context.Users.ToArray();
         }
+
+        [Route("api/account/{userId}/{style}")]
+        [HttpPut]
+        public async Task<bool> Put(string userId, string style)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            user.Style = style;
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

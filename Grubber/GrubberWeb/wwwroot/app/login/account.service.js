@@ -74,6 +74,17 @@ var AccountService = (function () {
             return result;
         });
     };
+    AccountService.prototype.saveStyle = function (userId, style) {
+        return this._http.put(this.apiUrl + userId + "/" + style, "")
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (userResult) {
+            var result;
+            result = userResult;
+            return result;
+        });
+    };
     AccountService.prototype._fetchFailed = function (error) {
         console.error(error);
         return Promise.reject(error);

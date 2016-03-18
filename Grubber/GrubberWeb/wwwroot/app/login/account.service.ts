@@ -74,6 +74,19 @@ export class AccountService {
             });
     }
 
+    saveStyle(userId: string, style: string) {
+        return this._http.put(this.apiUrl + userId + "/" + style, "")
+            .map((response) => {
+                return response.json();
+            })
+            .map((userResult: boolean) => {
+                let result: boolean;
+
+                result = userResult;
+                return result;
+            });
+    }
+
     private _fetchFailed(error: any) {
         console.error(error);
         return Promise.reject(error);

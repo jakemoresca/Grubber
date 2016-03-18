@@ -21,7 +21,14 @@
                 <li>
                     <a [routerLink]="['MySchedule']">My Schedule</a>
                 </li>
-                <li>
+                <li [hidden]="user.userName == null">
+                    <select class="form-control" [ngModel]="user.style" (ngModelChange)="onStyleChange($event)">
+                        <option value="flatly">Flatly</option>
+                        <option value="paper">Paper</option>
+                        <option value="sandstone">Sandstone</option>
+                    </select>
+                </li>
+                <li [hidden]="user.userName == null">
                     <a href="#" (click)="logout()">Logout</a>
                 </li>
             </ul>

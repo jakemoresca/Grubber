@@ -8,9 +8,10 @@ using GrubberApi.Models;
 namespace GrubberWeb.Migrations
 {
     [DbContext(typeof(GrubberContext))]
-    partial class GrubberContextModelSnapshot : ModelSnapshot
+    [Migration("20160318063401_AddStyleColumnToUser")]
+    partial class AddStyleColumnToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")

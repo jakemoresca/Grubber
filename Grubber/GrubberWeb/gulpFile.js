@@ -33,7 +33,9 @@ gulp.task('moveBootstrap', function () {
 });
 
 gulp.task('moveBootswatch', function () {
-    return gulp.src(['./node_modules/bootswatch-less/bootswatch/flatly/**/*']).pipe(gulp.dest('./wwwroot/libs/bootswatch/flatly'));
+    gulp.src(['./node_modules/bootswatch-less/bootswatch/flatly/**/*']).pipe(gulp.dest('./wwwroot/libs/bootswatch/flatly'));
+    gulp.src(['./node_modules/bootswatch-less/bootswatch/paper/**/*']).pipe(gulp.dest('./wwwroot/libs/bootswatch/paper'));
+    return gulp.src(['./node_modules/bootswatch-less/bootswatch/sandstone/**/*']).pipe(gulp.dest('./wwwroot/libs/bootswatch/sandstone'));
 });
 
 gulp.task('movejQuery', function () {
@@ -41,7 +43,15 @@ gulp.task('movejQuery', function () {
 });
 
 gulp.task('less', function () {
-    gulp.src(paths.cssTarget + 'site.less') //path to your main less file
+    gulp.src(paths.cssTarget + 'paper.less') //path to your main less file
       .pipe(less())
       .pipe(gulp.dest(paths.cssTarget)); // your output folder
+
+    gulp.src(paths.cssTarget + 'flatly.less') //path to your main less file
+      .pipe(less())
+      .pipe(gulp.dest(paths.cssTarget));
+
+    gulp.src(paths.cssTarget + 'sandstone.less') //path to your main less file
+      .pipe(less())
+      .pipe(gulp.dest(paths.cssTarget));
 });
