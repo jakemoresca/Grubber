@@ -107,9 +107,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="#reservation of tripSchedule.reservations; #td = index">
-                            <td>
-
+                        <tr *ngFor="#reservation of tripSchedule.tripReservations; #td = index">
+                            <td style="width: 150px;">
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Approve">
+                                    Approve
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Approve">
+                                    Reject
+                                </button>
                             </td>
                             <td>
                                 <span *ngFor="#user of users; #u = index">

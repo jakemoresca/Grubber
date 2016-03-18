@@ -10,7 +10,7 @@ export class TripSchedule {
     public landMarks: Array<TripLandMark>;
 
     public isNew: boolean;
-    public reservations: Array<TripReservation>;
+    public tripReservations: Array<TripReservation>;
 }
 
 export enum DayOfWeek {
