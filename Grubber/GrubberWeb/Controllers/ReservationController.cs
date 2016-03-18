@@ -56,6 +56,16 @@ namespace GrubberWeb.Controllers
             return batchTripReservationViewModel;
         }
 
+        [Route("api/reservation/{reservationId}/{status}")]
+        [HttpPut]
+        public async Task<bool> Put(int reservationId, int status)
+        {
+            var reservationModel = await _context.TripReservations.FirstOrDefaultAsync(r => r.Id == reservationId);
+            reservationModel.Status = (ReservationStatus)status;
+            _context.Update(reservationModel);
+            await _context.SaveChangesAsync();
 
+            return true;
+        }
     }
 }

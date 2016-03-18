@@ -68,6 +68,28 @@ var Home = (function () {
             _this.getNearestTripDistance();
         });
     };
+    Home.prototype.approveRequest = function (reservationId) {
+        var _this = this;
+        this._reservationService.approveRequest(reservationId)
+            .subscribe(function (res) {
+            alert("Processing Successful");
+            _this._reservationService.getCarPoolForDrivers(_this.user.id)
+                .subscribe(function (schedRes) {
+                _this.tripSchedulesForDrivers = schedRes;
+            });
+        });
+    };
+    Home.prototype.rejectRequest = function (reservationId) {
+        var _this = this;
+        this._reservationService.rejectRequest(reservationId)
+            .subscribe(function (res) {
+            alert("Processing Successful");
+            _this._reservationService.getCarPoolForDrivers(_this.user.id)
+                .subscribe(function (schedRes) {
+                _this.tripSchedulesForDrivers = schedRes;
+            });
+        });
+    };
     Home.prototype.reserveTripSchedule = function () {
         var _this = this;
         var selectedTripDistances = this.topTripDistances.filter(function (tripDistance) { return tripDistance.isSelected == true; });

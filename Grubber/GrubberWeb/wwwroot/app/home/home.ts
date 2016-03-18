@@ -84,6 +84,30 @@ export class Home{
             });
     }
 
+    approveRequest(reservationId: number) {
+        this._reservationService.approveRequest(reservationId)
+            .subscribe(res => {
+                alert("Processing Successful");
+
+                this._reservationService.getCarPoolForDrivers(this.user.id)
+                    .subscribe(schedRes => {
+                        this.tripSchedulesForDrivers = schedRes;
+                    });
+            });
+    }
+
+    rejectRequest(reservationId: number) {
+        this._reservationService.rejectRequest(reservationId)
+            .subscribe(res => {
+                alert("Processing Successful");
+
+                this._reservationService.getCarPoolForDrivers(this.user.id)
+                    .subscribe(schedRes => {
+                        this.tripSchedulesForDrivers = schedRes;
+                    });
+            });
+    }
+
     reserveTripSchedule() {
         var selectedTripDistances = this.topTripDistances.filter(tripDistance => tripDistance.isSelected == true);
         var batchTripReservation = this.createBatchTripReservation(selectedTripDistances);

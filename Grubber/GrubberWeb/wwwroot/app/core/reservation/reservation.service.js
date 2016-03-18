@@ -31,6 +31,38 @@ var ReservationService = (function () {
             return result;
         });
     };
+    ReservationService.prototype.approveRequest = function (reservationId) {
+        var body = "";
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.put(this.apiUrl + "/" + reservationId.toString() + "/1", body, {
+            headers: headers
+        })
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (status) {
+            var result;
+            result = status;
+            return result;
+        });
+    };
+    ReservationService.prototype.rejectRequest = function (reservationId) {
+        var body = "";
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.put(this.apiUrl + "/" + reservationId.toString() + "/1", body, {
+            headers: headers
+        })
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (status) {
+            var result;
+            result = status;
+            return result;
+        });
+    };
     ReservationService.prototype.getCarPoolForDrivers = function (userId) {
         return this._http.get(this.apiUrl)
             .map(function (response) {

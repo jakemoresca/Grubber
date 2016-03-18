@@ -29,6 +29,44 @@ export class ReservationService {
             });
     }
 
+    approveRequest(reservationId: number) {
+        var body = "";
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        return this._http.put(this.apiUrl + "/" + reservationId.toString() + "/1", body,
+            {
+                headers: headers
+            })
+            .map((response) => {
+                return response.json();
+            })
+            .map((status: boolean) => {
+                let result: boolean;
+                result = status;
+                return result;
+            });
+    }
+
+    rejectRequest(reservationId: number) {
+        var body = "";
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        return this._http.put(this.apiUrl + "/" + reservationId.toString() + "/2", body,
+            {
+                headers: headers
+            })
+            .map((response) => {
+                return response.json();
+            })
+            .map((status: boolean) => {
+                let result: boolean;
+                result = status;
+                return result;
+            });
+    }
+
     getCarPoolForDrivers(userId: string) {
         return this._http.get(this.apiUrl)
             .map((response) => {
