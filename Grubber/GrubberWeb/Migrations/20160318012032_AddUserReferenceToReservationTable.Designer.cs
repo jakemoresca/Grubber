@@ -8,9 +8,10 @@ using GrubberApi.Models;
 namespace GrubberWeb.Migrations
 {
     [DbContext(typeof(GrubberContext))]
-    partial class GrubberContextModelSnapshot : ModelSnapshot
+    [Migration("20160318012032_AddUserReferenceToReservationTable")]
+    partial class AddUserReferenceToReservationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")

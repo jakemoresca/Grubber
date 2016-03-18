@@ -31,7 +31,8 @@
         </div>
     </div>
 </div>
-<div class="row">
+
+<div class="row" [hidden]="topTripDistances.length == 0">
     <div class="google-map-container" id="mapLandMark" googleMap [latitude]="startLat" [longitude]="startLng" [useNative]="false"></div>
 </div>
 
@@ -42,7 +43,7 @@
                 <h3 class="panel-title">
                     Search Results
                     <button type="button" class="btn btn-default btn-sm" aria-label="Reserve" (click)="reserveTripSchedule()">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        Reserve
                     </button>
                 </h3>
             </div>
@@ -76,6 +77,49 @@
                             <td>{{tripDistance.scheduleDate}} - {{tripDistance.scheduleTime}}</td>
                             <td><span *ngIf="tripDistance.landMarks.length > 0">{{tripDistance.landMarks[0].landMarkName}}</span></td>
                             <td><span *ngIf="tripDistance.landMarks.length > 1">{{tripDistance.landMarks[tripDistance.landMarks.length - 1].landMarkName}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" [hidden]="tripSchedulesForDrivers.length == 0">
+    <div class="col-md-12">
+        <div class="panel panel-primary" *ngFor="#tripSchedule of tripSchedulesForDrivers; #ts = index">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {{tripSchedule.scheduleDate}} - {{tripSchedule.scheduleTime}}
+                </h3>
+            </div>
+            <div class="panel-body">
+                <h5>From: {{tripSchedule.landMarks[0].landMarkName}}</h5>
+                <h5>To: {{tripSchedule.landMarks[tripSchedule.landMarks.length - 1].landMarkName}}</h5>
+                <h5>Passengers: </h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Starting Point</th>
+                            <th>End Point</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="#reservation of tripSchedule.reservations; #td = index">
+                            <td>
+
+                            </td>
+                            <td>
+                                <span *ngFor="#user of users; #u = index">
+                                    <span [hidden]="user.id != reservation.userId">
+                                        {{user.userName}}
+                                    </span>
+                                </span>
+                            </td>
+                            <td>{{reservation.tripStart}}</td>
+                            <td>{{reservation.tripTo}}</td>
                         </tr>
                     </tbody>
                 </table>

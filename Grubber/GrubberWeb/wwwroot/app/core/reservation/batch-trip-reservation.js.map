@@ -1,1 +1,1 @@
-{"version":3,"file":"batch-trip-reservation.js","sourceRoot":"","sources":["batch-trip-reservation.ts"],"names":["BatchTripReservation","BatchTripReservation.constructor"],"mappings":"AAEA;IAAAA;IAIAC,CAACA;IAADD,2BAACA;AAADA,CAACA,AAJD,IAIC;AAJY,4BAAoB,uBAIhC,CAAA"}
+{"version":3,"file":"batch-trip-reservation.js","sourceRoot":"","sources":["batch-trip-reservation.ts"],"names":["BatchTripReservation","BatchTripReservation.constructor"],"mappings":"AAEA;IAAAA;IAKAC,CAACA;IAADD,2BAACA;AAADA,CAACA,AALD,IAKC;AALY,4BAAoB,uBAKhC,CAAA"}

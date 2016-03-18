@@ -39,6 +39,7 @@ export class Home{
     tripSchedules: Array<TripSchedule>;
 
     topTripDistances: Array<TripDistance>;
+    tripSchedulesForDrivers: Array<TripSchedule>;
 
     constructor(private _router: Router, private _location: Location, private _accountService: AccountService, private _tripService: TripService, private _reservationService: ReservationService) {
         _accountService.getAllUsers()
@@ -51,9 +52,15 @@ export class Home{
                 }
                 else {
                     this.user = res;
+
+                    _reservationService.getCarPoolForDrivers(this.user.id)
+                        .subscribe(schedRes => {
+                            this.tripSchedulesForDrivers = schedRes;
+                        });
                 }
             });
 
+        this.tripSchedulesForDrivers = new Array<TripSchedule>();
         this.topTripDistances = new Array<TripDistance>();
     }
 
@@ -82,11 +89,15 @@ export class Home{
         var batchTripReservation = this.createBatchTripReservation(selectedTripDistances);
 
         this._reservationService.addBatchTripReservation(batchTripReservation)
-            .subscribe(result => alert("Reservation Successful"));
+            .subscribe(result => {
+                alert("Reservation Successful")
+                this.topTripDistances = [];
+            });
     }
 
     createBatchTripReservation(tripDistances: Array<TripDistance>) {
         var batchTripReservation = new BatchTripReservation();
+        batchTripReservation.userId = this.user.id;
         batchTripReservation.reservations = new Array<TripReservation>();
 
         var self = this;
@@ -107,7 +118,8 @@ export class Home{
         tripReservation.tripTo = this.toPlace;
         tripReservation.tripToLat = this.toLat;
         tripReservation.tripToLng = this.toLng;
-        tripReservation.tripSchedule = <TripSchedule>tripDistance;
+        tripReservation.tripScheduleId = tripDistance.id;
+        tripReservation.userId = this.user.id;
         
         return tripReservation;
     }
@@ -190,5 +202,6 @@ export class Home{
         });
 
         this.topTripDistances = tempTopTripDistances;
+        if (tempTopTripDistances.length == 0) alert("No Driver Found.");
     }
 }

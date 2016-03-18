@@ -7,6 +7,12 @@ namespace GrubberWeb.Mappers
 {
     public class TripScheduleMapper : ITripScheduleMapper
     {
+        private ITripReservationMapper _tripReservationMapper;
+        public TripScheduleMapper(ITripReservationMapper tripReservationMapper)
+        {
+            _tripReservationMapper = tripReservationMapper;
+        }
+
         public TripSchedule ToModel(TripScheduleViewModel viewModel)
         {
             return new TripSchedule
@@ -18,9 +24,9 @@ namespace GrubberWeb.Mappers
             };
         }
 
-        public TripScheduleViewModel ToViewModel(TripSchedule model)
+        public TripScheduleViewModel ToViewModel(TripSchedule model, bool includeReservation = false)
         {
-            return new TripScheduleViewModel
+            var tripScheduleViewModel = new TripScheduleViewModel
             {
                 Id = model.Id,
                 UserId = model.UserId,
@@ -28,6 +34,11 @@ namespace GrubberWeb.Mappers
                 ScheduleTime = model.ScheduleDateTime.ToString("hh:mm tt"),
                 LandMarks = model.TripLandMarks.Select(tl => ToViewModel(tl)).ToList()
             };
+
+            if (includeReservation) tripScheduleViewModel.TripReservations 
+                    = model.TripReservations.Select(tr => _tripReservationMapper.ToViewModel(tr, includeReservation)).ToList();
+
+            return tripScheduleViewModel;
         }
 
         public TripLandMark ToModel(TripLandMarkViewModel viewModel)

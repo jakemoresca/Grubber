@@ -8,9 +8,10 @@ using GrubberApi.Models;
 namespace GrubberWeb.Migrations
 {
     [DbContext(typeof(GrubberContext))]
-    partial class GrubberContextModelSnapshot : ModelSnapshot
+    [Migration("20160318000719_ModifyLocationLatLngTypeToFloat")]
+    partial class ModifyLocationLatLngTypeToFloat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -139,8 +140,6 @@ namespace GrubberWeb.Migrations
 
                     b.Property<int?>("AcceptedTripReservationId");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
                 });
 
@@ -167,8 +166,6 @@ namespace GrubberWeb.Migrations
                     b.Property<float>("TripToLat");
 
                     b.Property<float>("TripToLng");
-
-                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
                 });
@@ -285,10 +282,6 @@ namespace GrubberWeb.Migrations
                     b.HasOne("GrubberWeb.Models.TripReservation")
                         .WithMany()
                         .HasForeignKey("AcceptedTripReservationId");
-
-                    b.HasOne("GrubberWeb.Models.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("GrubberWeb.Models.TripReservation", b =>

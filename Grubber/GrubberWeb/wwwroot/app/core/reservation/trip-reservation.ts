@@ -1,7 +1,6 @@
-﻿import {TripSchedule} from '../trips/trip-schedule';
-
-export class TripReservation {
+﻿export class TripReservation {
     public id: number;
+    public userId: string;
     public tripStart: string
     public tripStartLat: number;
     public tripStartLng: number;
@@ -9,7 +8,6 @@ export class TripReservation {
     public tripToLat: number;
     public tripToLng: number;
     public tripScheduleId: number;
-    public tripSchedule: TripSchedule;
     public status: ReservationStatus;
 }
 

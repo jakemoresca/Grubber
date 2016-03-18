@@ -9,12 +9,13 @@ namespace GrubberWeb.Models
     public class TripReservation
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
         public string TripStart { get; set; }
-        public int TripStartLat {get; set;}
-        public int TripStartLng {get; set;}
+        public float TripStartLat {get; set;}
+        public float TripStartLng {get; set;}
         public string TripTo { get; set; }
-        public int TripToLat {get; set;}
-        public int TripToLng {get; set;}
+        public float TripToLat {get; set;}
+        public float TripToLng {get; set;}
         public int TripScheduleId {get; set;}
         public TripSchedule TripSchedule { get; set; }
         public ReservationStatus Status { get; set; }

@@ -1,6 +1,7 @@
 import {Http, Headers} from 'angular2/http';
 import {Injectable} from 'angular2/core';
 import {BatchTripReservation} from './batch-trip-reservation';
+import {TripSchedule} from '../trips/trip-schedule';
 
 @Injectable()
 export class ReservationService {
@@ -24,6 +25,23 @@ export class ReservationService {
             .map((batchTripReservation: BatchTripReservation) => {
                 let result: BatchTripReservation;;
                 result = batchTripReservation;
+                return result;
+            });
+    }
+
+    getCarPoolForDrivers(userId: string) {
+        return this._http.get(this.apiUrl)
+            .map((response) => {
+                return response.json();
+            })
+            .map((tripSchedules: Array<any>) => {
+                let result: Array<TripSchedule> = [];
+
+                if (tripSchedules) {
+                    tripSchedules.forEach((tripSchedule) => {
+                        result.push(tripSchedule)
+                    });
+                }
                 return result;
             });
     }

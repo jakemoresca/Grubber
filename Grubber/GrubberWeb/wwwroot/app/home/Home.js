@@ -41,8 +41,13 @@ var Home = (function () {
             }
             else {
                 _this.user = res;
+                _reservationService.getCarPoolForDrivers(_this.user.id)
+                    .subscribe(function (schedRes) {
+                    _this.tripSchedulesForDrivers = schedRes;
+                });
             }
         });
+        this.tripSchedulesForDrivers = new Array();
         this.topTripDistances = new Array();
     }
     Home.prototype.startTripChanged = function (newValue) {
@@ -64,13 +69,18 @@ var Home = (function () {
         });
     };
     Home.prototype.reserveTripSchedule = function () {
+        var _this = this;
         var selectedTripDistances = this.topTripDistances.filter(function (tripDistance) { return tripDistance.isSelected == true; });
         var batchTripReservation = this.createBatchTripReservation(selectedTripDistances);
         this._reservationService.addBatchTripReservation(batchTripReservation)
-            .subscribe(function (result) { return alert("Reservation Successful"); });
+            .subscribe(function (result) {
+            alert("Reservation Successful");
+            _this.topTripDistances = [];
+        });
     };
     Home.prototype.createBatchTripReservation = function (tripDistances) {
         var batchTripReservation = new batch_trip_reservation_1.BatchTripReservation();
+        batchTripReservation.userId = this.user.id;
         batchTripReservation.reservations = new Array();
         var self = this;
         tripDistances.forEach(function (tripDistance) {
@@ -88,7 +98,8 @@ var Home = (function () {
         tripReservation.tripTo = this.toPlace;
         tripReservation.tripToLat = this.toLat;
         tripReservation.tripToLng = this.toLng;
-        tripReservation.tripSchedule = tripDistance;
+        tripReservation.tripScheduleId = tripDistance.id;
+        tripReservation.userId = this.user.id;
         return tripReservation;
     };
     Home.prototype.getNearestTripDistance = function () {
@@ -159,6 +170,8 @@ var Home = (function () {
             }
         });
         this.topTripDistances = tempTopTripDistances;
+        if (tempTopTripDistances.length == 0)
+            alert("No Driver Found.");
     };
     Home = __decorate([
         core_1.Component({

@@ -1,4 +1,5 @@
 import {TripLandMark} from './trip-landmark';
+import {TripReservation} from '../reservation/trip-reservation';
 import {EnumHelper, ObjHelper} from '../common';
 
 export class TripSchedule {
@@ -9,6 +10,7 @@ export class TripSchedule {
     public landMarks: Array<TripLandMark>;
 
     public isNew: boolean;
+    public reservations: Array<TripReservation>;
 }
 
 export enum DayOfWeek {

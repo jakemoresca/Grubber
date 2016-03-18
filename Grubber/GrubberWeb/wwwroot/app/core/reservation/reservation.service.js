@@ -31,6 +31,21 @@ var ReservationService = (function () {
             return result;
         });
     };
+    ReservationService.prototype.getCarPoolForDrivers = function (userId) {
+        return this._http.get(this.apiUrl)
+            .map(function (response) {
+            return response.json();
+        })
+            .map(function (tripSchedules) {
+            var result = [];
+            if (tripSchedules) {
+                tripSchedules.forEach(function (tripSchedule) {
+                    result.push(tripSchedule);
+                });
+            }
+            return result;
+        });
+    };
     ReservationService.prototype._fetchFailed = function (error) {
         console.error(error);
         return Promise.reject(error);

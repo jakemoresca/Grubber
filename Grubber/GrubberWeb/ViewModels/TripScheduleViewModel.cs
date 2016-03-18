@@ -14,5 +14,6 @@ namespace GrubberWeb.ViewModels
         public string ScheduleDate { get; set; }
         public bool IsNew { get; set; }
         public IList<TripLandMarkViewModel> LandMarks { get; set; }
+        public IList<TripReservationViewModel> TripReservations { get; set; }
     }
 }

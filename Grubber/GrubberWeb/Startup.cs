@@ -45,6 +45,7 @@ namespace GrubberWeb
             });
             // Add application services.
             services.AddTransient<ITripScheduleMapper, TripScheduleMapper>();
+            services.AddTransient<ITripReservationMapper, TripReservationMapper>();
             services.AddTransient<DBInitializer>();
             //services.AddTransient<ISmsSender, AuthMessageSender>();
 
