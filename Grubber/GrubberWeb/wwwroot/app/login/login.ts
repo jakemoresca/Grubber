@@ -24,7 +24,9 @@ export class Login {
             .subscribe(res =>
             {
                 if (res) this._router.parent.navigateByUrl('/home');
-                alert("Invalid Username/Password combination");
+                else {
+                    alert("Invalid Username/Password combination");
+                }
             });
     }
 }

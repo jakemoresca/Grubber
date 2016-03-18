@@ -23,7 +23,9 @@ var Login = (function () {
             .subscribe(function (res) {
             if (res)
                 _this._router.parent.navigateByUrl('/home');
-            alert("Invalid Username/Password combination");
+            else {
+                alert("Invalid Username/Password combination");
+            }
         });
     };
     Login = __decorate([

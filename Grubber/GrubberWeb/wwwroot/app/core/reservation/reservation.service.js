@@ -51,7 +51,7 @@ var ReservationService = (function () {
         var body = "";
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.put(this.apiUrl + "/" + reservationId.toString() + "/1", body, {
+        return this._http.put(this.apiUrl + "/" + reservationId.toString() + "/2", body, {
             headers: headers
         })
             .map(function (response) {
