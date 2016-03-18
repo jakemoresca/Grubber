@@ -107,8 +107,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="#reservation of tripSchedule.tripReservations; #td = index">
-                            <template [hidden]="reservation.status == 2">
+                        <tr *ngFor="#reservation of tripSchedule.tripReservations; #td = index" [hidden]="reservation.status == 2">
                                 <td style="width: 150px;">
                                     <span [hidden]="reservation.status!=0">
                                         <button type="button" class="btn btn-default btn-sm" aria-label="Approve" (click)="approveRequest(reservation.id)">
@@ -128,7 +127,6 @@
                                 </td>
                                 <td>{{reservation.tripStart}}</td>
                                 <td>{{reservation.tripTo}}</td>
-                            </template>
                         </tr>
                     </tbody>
                 </table>
