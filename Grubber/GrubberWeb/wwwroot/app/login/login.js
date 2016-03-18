@@ -12,17 +12,17 @@ var router_1 = require('angular2/router');
 var account_service_1 = require('./account.service');
 var user_1 = require('../core/user');
 var Login = (function () {
-    function Login(_router, _accountService) {
+    function Login(_router, _accountService, _location) {
         this._router = _router;
         this._accountService = _accountService;
+        this._location = _location;
         this.user = new user_1.User();
     }
     Login.prototype.login = function () {
-        var _this = this;
         this._accountService.login(this.user)
             .subscribe(function (res) {
             if (res)
-                _this._router.parent.navigateByUrl('/home');
+                document.location.href = "/";
             else {
                 alert("Invalid Username/Password combination");
             }
@@ -34,7 +34,7 @@ var Login = (function () {
             moduleId: module.id,
             templateUrl: 'login.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, account_service_1.AccountService])
+        __metadata('design:paramtypes', [router_1.Router, account_service_1.AccountService, router_1.Location])
     ], Login);
     return Login;
 })();
