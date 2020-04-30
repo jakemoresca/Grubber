@@ -12,7 +12,7 @@
     "bootstrap": "3.3.6",
     "bootstrap-less": "3.3.8",
     "bootswatch-less": "3.3.4",
-    "jquery": "2.2.0",
+    "jquery": "3.5.0",
     "less": "2.6.0"
   },
   "devDependencies": {
